@@ -1,0 +1,5 @@
+# robots.txt for HenHouse Chicken Pricing Calculator
+User-agent: *
+Allow: /
+
+Sitemap: https://ragulan28.github.io/henhouse-calculator/sitemap.xml

@@ -29,6 +29,7 @@ Users can enter live bird purchase prices, operating expenses, live chicken weig
 - **⚖️ Live vs. Dressed Comparison**: Side-by-side comparison of profit per kilogram and selling price difference.
 - **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS in the selected language.
 - **📱 PWA & 100% Offline Support**: Installable directly to mobile home screens (iOS & Android) with local caching via Service Worker.
+- **🔍 Comprehensive SEO & Social Sharing**: Complete Schema.org JSON-LD (`WebApplication`, `LocalBusiness`, `FAQPage`), Open Graph (`og-image.png`, 1200×630), Twitter Cards, `sitemap.xml`, and `robots.txt`.
 - **🎨 Brand-Aligned Design**: Warm barnwood espresso and golden amber color theme crafted from the official HenHouse emblem.
 - **💬 Direct Business Integration**: Seamless WhatsApp (`0777 649 544`) and Facebook (`facebook.com/henhouse.lk`) connectivity.
 
@@ -72,6 +73,9 @@ henhouse-calculator/
 ├── index.html              # Core application, responsive UI & calculator logic
 ├── manifest.webmanifest    # PWA configuration and app icons
 ├── sw.js                   # Service Worker for offline caching
+├── robots.txt              # Search engine crawler instructions
+├── sitemap.xml             # XML sitemap with multilingual hreflang
+├── og-image.png            # 1200×630 Open Graph & Twitter social card
 ├── henhouse.png            # Master high-resolution brand emblem (3840×3840)
 ├── logo.png                # Optimized header logo (256×256)
 ├── favicon.ico             # Desktop browser favicon (16/32/48 multi-size)
@@ -82,7 +86,8 @@ henhouse-calculator/
 ├── icon-512.png            # 512×512 Android PWA splash/maskable icon
 ├── docs/
 │   ├── BRANDING_AND_ICONS.md # Technical documentation for design & branding
-│   └── LOCALIZATION.md       # Trilingual (EN, SI, TA) architecture & terminology
+│   ├── LOCALIZATION.md       # Trilingual (EN, SI, TA) architecture & terminology
+│   └── SEO.md                # Search engine optimization & structured data
 └── README.md               # Project documentation
 ```
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = "henhouse-calculator-v6";
+const CACHE_NAME = "henhouse-calculator-v7";
 const FILES = [
   "./",
   "./index.html",
@@ -8,7 +8,8 @@ const FILES = [
   "./apple-touch-icon.png",
   "./icon-192.png",
   "./icon-512.png",
-  "./logo.png"
+  "./logo.png",
+  "./og-image.png"
 ];
 
 self.addEventListener("install", event => {
