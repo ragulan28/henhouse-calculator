@@ -38,6 +38,9 @@ None.
 
 - Assets generated: `favicon.ico`, `favicon.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon.svg`, `logo.png`.
 - Master asset preserved: `henhouse.png`.
+- Header & Footer Social Channels:
+  - WhatsApp: `https://wa.me/94777649544` (Direct chat link for Sri Lankan mobile `0777 649 544`)
+  - Facebook: `https://www.facebook.com/henhouse.lk` (Official page)
 
 ## Configuration
 
