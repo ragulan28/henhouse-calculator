@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d2b">
+  <meta name="description" content="HenHouse Chicken Pricing Calculator">
+  <title>HenHouse | Chicken Pricing Calculator</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <style>
+    :root {
+      color-scheme: light;
+      --green: #173d2b;
+      --green2: #245b3e;
+      --gold: #e5b94f;
+      --ink: #17221b;
+      --muted: #66736b;
+      --line: #dce5de;
+      --bg: #f4f7f4;
+      --card: #fff;
+      --soft: #edf4ee;
+      --danger: #a52d2d;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); }
+    header { background: var(--green); color: white; padding: 25px 18px 23px; }
+    .header-inner, main { width: min(100% - 28px, 980px); margin: 0 auto; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand-logo { width:44px; height:44px; object-fit:contain; display:block; flex-shrink:0; }
+    h1 { margin:0; font-size:clamp(22px, 4vw, 30px); letter-spacing:-.5px; }
+    .tagline { margin:5px 0 0; color:#d9e7dd; font-size:13px; }
+    main { padding:22px 0 42px; }
+    .intro { margin:0 0 17px; color:var(--muted); font-size:14px; line-height:1.5; }
+    .layout { display:grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap:16px; align-items:start; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:17px; padding:19px; box-shadow:0 5px 20px rgba(20,50,30,.045); }
+    h2 { font-size:17px; margin:0 0 15px; }
+    .field { margin-bottom:14px; }
+    label { display:block; font-size:13px; font-weight:650; margin-bottom:7px; }
+    .input-wrap { position:relative; }
+    input { width:100%; border:1px solid #cbd8ce; border-radius:10px; padding:12px 48px 12px 12px; font:inherit; font-size:16px; color:var(--ink); background:#fff; outline:none; }
+    input:focus { border-color:var(--green2); box-shadow:0 0 0 3px rgba(36,91,62,.12); }
+    .unit { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:12px; pointer-events:none; }
+    .hint { color:var(--muted); font-size:11px; margin-top:5px; }
+    .actions { display:flex; gap:9px; flex-wrap:wrap; margin-top:18px; }
+    button { border:0; border-radius:10px; padding:11px 15px; font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+    .primary { color:#fff; background:var(--green); }
+    .secondary { color:var(--green); background:var(--soft); }
+    button:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+    .error { display:none; color:var(--danger); background:#fff1f1; padding:10px 12px; border-radius:9px; font-size:13px; margin-top:12px; }
+    .result-group + .result-group { border-top:1px solid var(--line); margin-top:16px; padding-top:16px; }
+    .result-title { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:9px; }
+    .result-title h3 { margin:0; font-size:14px; }
+    .pill { font-size:10px; font-weight:700; color:var(--green2); background:var(--soft); border-radius:30px; padding:5px 8px; }
+    .metric { display:flex; justify-content:space-between; gap:15px; padding:8px 0; border-bottom:1px solid #eef2ee; font-size:13px; }
+    .metric:last-child { border-bottom:0; }
+    .metric span:first-child { color:var(--muted); }
+    .metric strong { text-align:right; font-variant-numeric:tabular-nums; }
+    .highlight { background:var(--soft); margin:9px -9px 0; padding:10px 9px; border-radius:9px; }
+    .compare { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:10px; }
+    .compare-box { background:#f7f9f7; border:1px solid var(--line); border-radius:11px; padding:11px; }
+    .compare-box small { display:block; color:var(--muted); font-size:11px; margin-bottom:5px; }
+    .compare-box strong { font-size:17px; font-variant-numeric:tabular-nums; }
+    .note { color:var(--muted); font-size:11px; line-height:1.5; margin:14px 0 0; }
+    footer { text-align:center; color:var(--muted); font-size:11px; padding:0 15px 24px; }
+    @media (max-width:720px) { .layout { grid-template-columns:1fr; } .card { padding:16px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <img class="brand-logo" src="./logo.png" alt="HenHouse Logo" width="44" height="44" onerror="this.onerror=null;this.src='./henhouse.png';">
+        <div>
+          <h1>HenHouse</h1>
+          <p class="tagline">Chicken Pricing Calculator</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <p class="intro">Enter your chicken purchase cost and expenses to compare live-chicken and dressed-chicken selling prices.</p>
+    <div class="layout">
+      <section class="card" aria-labelledby="inputs-heading">
+        <h2 id="inputs-heading">Your inputs</h2>
+        <div class="field">
+          <label for="purchase">Live chicken purchase price</label>
+          <div class="input-wrap"><input id="purchase" type="number" min="0" step="0.01" value="800"><span class="unit">Rs./kg</span></div>
+        </div>
+        <div class="field">
+          <label for="margin">Desired profit margin</label>
+          <div class="input-wrap"><input id="margin" type="number" min="0" max="99.99" step="0.1" value="15"><span class="unit">%</span></div>
+          <div class="hint">Margin is calculated as a percentage of the selling price.</div>
+        </div>
+        <div class="field">
+          <label for="expenses">Other expenses</label>
+          <div class="input-wrap"><input id="expenses" type="number" min="0" step="0.01" value="50"><span class="unit">Rs./bird</span></div>
+        </div>
+        <div class="field">
+          <label for="weight">Live chicken weight</label>
+          <div class="input-wrap"><input id="weight" type="number" min="0.001" step="0.001" value="2"><span class="unit">kg</span></div>
+        </div>
+        <div class="field">
+          <label for="yield">Dressing yield</label>
+          <div class="input-wrap"><input id="yield" type="number" min="0.001" max="100" step="0.1" value="71"><span class="unit">%</span></div>
+        </div>
+        <div id="error" class="error" role="alert"></div>
+        <div class="actions">
+          <button class="primary" id="copy">Copy calculation</button>
+          <button class="secondary" id="reset" type="button">Reset</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="results-heading" aria-live="polite">
+        <h2 id="results-heading">Calculated results</h2>
+        <div class="result-group">
+          <div class="result-title"><h3>Total cost per bird</h3><span class="pill">COST</span></div>
+          <div class="metric highlight"><span>Total cost</span><strong id="totalCost">Rs. 1,650.00</strong></div>
+        </div>
+        <div class="result-group">
+          <div class="result-title"><h3>Live chicken</h3><span class="pill">LIVE</span></div>
+          <div class="metric"><span>Break-even price/kg</span><strong id="liveBE">Rs. 825.00</strong></div>
+          <div class="metric"><span>Selling price/kg</span><strong id="liveSP">Rs. 970.59</strong></div>
+          <div class="metric"><span>Profit/kg</span><strong id="liveProfit">Rs. 145.59</strong></div>
+        </div>
+        <div class="result-group">
+          <div class="result-title"><h3>Dressed chicken</h3><span class="pill">DRESSED</span></div>
+          <div class="metric"><span>Expected dressed weight</span><strong id="dressedWeight">1.42 kg</strong></div>
+          <div class="metric"><span>Break-even price/kg</span><strong id="dressedBE">Rs. 1,161.97</strong></div>
+          <div class="metric"><span>Selling price/kg</span><strong id="dressedSP">Rs. 1,366.32</strong></div>
+          <div class="metric"><span>Profit/kg</span><strong id="dressedProfit">Rs. 204.35</strong></div>
+        </div>
+        <div class="result-group">
+          <div class="result-title"><h3>Price comparison</h3><span class="pill">COMPARE</span></div>
+          <div class="compare">
+            <div class="compare-box"><small>Live profit/kg</small><strong id="compareLive">Rs. 145.59</strong></div>
+            <div class="compare-box"><small>Dressed profit/kg</small><strong id="compareDressed">Rs. 204.35</strong></div>
+          </div>
+          <div class="metric highlight"><span>Selling-price difference/kg</span><strong id="difference">Rs. 395.73</strong></div>
+        </div>
+        <p class="note">Figures are estimates based on the inputs entered. Actual costs and dressing yield may vary.</p>
+      </section>
+    </div>
+  </main>
+  <footer>HenHouse · Chicken Pricing Calculator</footer>
+
+<script>
+(() => {
+  const ids = ["purchase", "margin", "expenses", "weight", "yield"];
+  const defaults = { purchase: 800, margin: 15, expenses: 50, weight: 2, yield: 71 };
+  const $ = id => document.getElementById(id);
+  const money = value => "Rs. " + value.toLocaleString("en-LK", {minimumFractionDigits:2, maximumFractionDigits:2});
+  let current = null;
+
+  function calculate() {
+    const v = Object.fromEntries(ids.map(id => [id, Number($(id).value)]));
+    const error = $("error");
+    const invalid = ids.some(id => $(id).value.trim() === "" || !Number.isFinite(v[id])) ||
+      v.purchase < 0 || v.margin < 0 || v.margin >= 100 || v.expenses < 0 ||
+      v.weight <= 0 || v.yield <= 0 || v.yield > 100;
+    if (invalid) {
+      error.textContent = "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.";
+      error.style.display = "block";
+      $("copy").disabled = true;
+      $("copy").style.opacity = ".55";
+      current = null;
+      return;
+    }
+    error.style.display = "none";
+    $("copy").disabled = false;
+    $("copy").style.opacity = "1";
+
+    const cost = v.purchase * v.weight + v.expenses;
+    const dressedWeight = v.weight * v.yield / 100;
+    const liveBE = cost / v.weight;
+    const dressedBE = cost / dressedWeight;
+    const factor = 1 - v.margin / 100;
+    const liveSP = liveBE / factor;
+    const dressedSP = dressedBE / factor;
+    const liveProfit = liveSP - liveBE;
+    const dressedProfit = dressedSP - dressedBE;
+    const difference = dressedSP - liveSP;
+
+    const result = { ...v, cost, dressedWeight, liveBE, dressedBE, liveSP, dressedSP, liveProfit, dressedProfit, difference };
+    current = result;
+    $("totalCost").textContent = money(cost);
+    $("liveBE").textContent = money(liveBE);
+    $("liveSP").textContent = money(liveSP);
+    $("liveProfit").textContent = money(liveProfit);
+    $("dressedWeight").textContent = dressedWeight.toFixed(2) + " kg";
+    $("dressedBE").textContent = money(dressedBE);
+    $("dressedSP").textContent = money(dressedSP);
+    $("dressedProfit").textContent = money(dressedProfit);
+    $("compareLive").textContent = money(liveProfit);
+    $("compareDressed").textContent = money(dressedProfit);
+    $("difference").textContent = money(difference);
+  }
+
+  ids.forEach(id => $(id).addEventListener("input", calculate));
+  $("reset").addEventListener("click", () => {
+    ids.forEach(id => $(id).value = defaults[id]);
+    calculate();
+  });
+  $("copy").addEventListener("click", async () => {
+    if (!current) return;
+    const r = current;
+    const text = [
+      "HenHouse Chicken Pricing Calculator",
+      `Live purchase price: ${money(r.purchase)}/kg`,
+      `Desired profit margin: ${r.margin}%`,
+      `Other expenses: ${money(r.expenses)}/bird`,
+      `Live chicken weight: ${r.weight} kg`,
+      `Dressing yield: ${r.yield}%`,
+      "",
+      `Total cost per bird: ${money(r.cost)}`,
+      "",
+      "LIVE CHICKEN",
+      `Break-even price/kg: ${money(r.liveBE)}`,
+      `Selling price/kg: ${money(r.liveSP)}`,
+      `Profit/kg: ${money(r.liveProfit)}`,
+      "",
+      "DRESSED CHICKEN",
+      `Expected dressed weight: ${r.dressedWeight.toFixed(2)} kg`,
+      `Break-even price/kg: ${money(r.dressedBE)}`,
+      `Selling price/kg: ${money(r.dressedSP)}`,
+      `Profit/kg: ${money(r.dressedProfit)}`,
+      "",
+      `Selling-price difference/kg: ${money(r.difference)}`
+    ].join("\n");
+    const btn = $("copy");
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = "Copy calculation", 1800);
+    } catch {
+      const area = document.createElement("textarea");
+      area.value = text; document.body.appendChild(area); area.select();
+      document.execCommand("copy"); area.remove();
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = "Copy calculation", 1800);
+    }
+  });
+  calculate();
+
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+  }
+})();
+</script>
+</body>
+</html>
