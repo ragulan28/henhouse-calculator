@@ -51,3 +51,4 @@ Maximize discoverability, search ranking, and social sharing click-through rates
 - `robots.txt`: Root search crawler permissions.
 - `sitemap.xml`: XML sitemap with trilingual hreflang alternates.
 - `sw.js`: Service Worker cache incremented to `henhouse-calculator-v7`.
+
