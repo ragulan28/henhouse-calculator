@@ -270,56 +270,37 @@
         padding: 9px 9px;
         border-radius: 9px;
       }
-      .highlight-sp {
-        background: #fbf3e5;
-        border: 1px solid #ead6bb;
-        margin: 6px -9px;
-        padding: 10px 9px;
-        border-radius: 10px;
-      }
-      .highlight-sp span:first-child {
-        color: var(--ink);
-        font-weight: 700;
-      }
-      .highlight-sp strong {
-        font-size: 16px;
-        font-weight: 800;
-        color: #854d0e;
-      }
       .compare {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 9px;
+        gap: 10px;
         margin-top: 10px;
       }
       .compare-box {
-        background: #fbf8f2;
-        border: 1px solid var(--line);
-        border-radius: 11px;
-        padding: 11px;
-      }
-      .compare-box.highlight-sp {
         background: #fbf3e5;
         border: 1px solid #ead6bb;
-      }
-      .compare-box.highlight-sp small {
-        color: var(--muted);
-        font-weight: 650;
-      }
-      .compare-box.highlight-sp strong {
-        font-size: 19px;
-        font-weight: 800;
-        color: #854d0e;
+        border-radius: 11px;
+        padding: 12px;
+        margin: 0;
+        min-width: 0;
+        box-sizing: border-box;
       }
       .compare-box small {
         display: block;
         color: var(--muted);
         font-size: 11px;
+        font-weight: 650;
         margin-bottom: 5px;
       }
       .compare-box strong {
-        font-size: 17px;
+        display: block;
+        font-size: clamp(16px, 2.5vw, 19px);
+        font-weight: 800;
+        color: #854d0e;
         font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .note {
         color: var(--muted);
@@ -475,6 +456,12 @@
         }
         .card {
           padding: 16px;
+        }
+      }
+      @media (max-width: 480px) {
+        .compare {
+          grid-template-columns: 1fr;
+          gap: 8px;
         }
       }
     </style>
@@ -663,11 +650,11 @@
               <span class="pill">SELLING PRICE</span>
             </div>
             <div class="compare">
-              <div class="compare-box highlight-sp">
+              <div class="compare-box">
                 <small>Live chicken / kg</small>
                 <strong id="compareLive">Rs. 970.59</strong>
               </div>
-              <div class="compare-box highlight-sp">
+              <div class="compare-box">
                 <small>Dressed chicken / kg</small>
                 <strong id="compareDressed">Rs. 1,366.32</strong>
               </div>
