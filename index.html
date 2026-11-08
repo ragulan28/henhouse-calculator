@@ -126,7 +126,12 @@
         display: grid;
         grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
         gap: 16px;
-        align-items: start;
+        align-items: stretch;
+      }
+      .layout > .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
       .card {
         background: var(--card);
@@ -184,7 +189,8 @@
         display: flex;
         gap: 9px;
         flex-wrap: wrap;
-        margin-top: 18px;
+        margin-top: auto;
+        padding-top: 14px;
       }
       button {
         border: 0;
@@ -454,8 +460,14 @@
         .layout {
           grid-template-columns: 1fr;
         }
+        .layout > .card {
+          height: auto;
+        }
         .card {
           padding: 16px;
+        }
+        .actions {
+          margin-top: 18px;
         }
       }
       @media (max-width: 480px) {
@@ -659,15 +671,7 @@
                 <strong id="compareDressed">Rs. 1,366.32</strong>
               </div>
             </div>
-            <div class="metric highlight">
-              <span>Selling-price difference/kg</span>
-              <strong id="difference">Rs. 395.73</strong>
-            </div>
           </div>
-          <p class="note">
-            Figures are estimates based on the inputs entered. Actual costs and
-            dressing yield may vary.
-          </p>
         </section>
       </div>
 
@@ -802,7 +806,7 @@
           $("dressedProfit").textContent = money(dressedProfit);
           $("compareLive").textContent = money(liveSP);
           $("compareDressed").textContent = money(dressedSP);
-          $("difference").textContent = money(difference);
+          if ($("difference")) $("difference").textContent = money(difference);
         }
 
         ids.forEach((id) => $(id).addEventListener("input", calculate));
@@ -831,8 +835,6 @@
             `Break-even price/kg: ${money(r.dressedBE)}`,
             `Selling price/kg: ${money(r.dressedSP)}`,
             `Profit/kg: ${money(r.dressedProfit)}`,
-            "",
-            `Selling-price difference/kg: ${money(r.difference)}`,
           ].join("\n");
           const btn = $("copy");
           try {
