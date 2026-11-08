@@ -3,6 +3,7 @@
 ## Purpose
 
 Provide full, authentic trilingual support for Sri Lanka's three official languages:
+
 1. **English (`en`)**
 2. **Sinhala (`si` / සිංහල)**
 3. **Tamil (`ta` / தமிழ்)**
@@ -50,26 +51,26 @@ The vocabulary and phrasing reflect everyday commercial terminology used by Sri 
 
 ## Sri Lankan Terminology Mapping
 
-| Metric / Term | English | Sinhala (සිංහල) | Tamil (தமிழ்) |
-| :--- | :--- | :--- | :--- |
-| **App Title** | HenHouse \| Chicken Pricing Calculator | HenHouse \| කුකුල් මස් මිල ගණනය | HenHouse \| கோழி விலை கணிப்பான் |
-| **Tagline** | Chicken Pricing Calculator | කුකුල් මස් මිල ගණනය කිරීම | கோழி இறைச்சி விலை கணிப்பான் |
-| **Live Chicken** | Live chicken | සජීවී කුකුල් මස් | உயிருள்ள கோழி |
-| **Dressed Chicken** | Dressed chicken | පිරිසිදු කළ කුකුල් මස් | சுத்தம் செய்த கோழி |
-| **Live Purchase Price** | Live chicken purchase price | සජීවී කුකුළන් මිලදී ගැනීමේ මිල | உயிருள்ள கோழி கொள்முதல் விலை |
-| **Profit Margin** | Desired profit margin | බලාපොරොත්තු වන ලාභ ප්‍රතිශතය | எதிர்பார்க்கும் இலாப விகிதம் |
-| **Other Expenses** | Other expenses | වෙනත් වියදම් | ஏனைய செலவுகள் |
-| **Live Chicken Weight** | Live chicken weight | සජීවී කුකුළාගේ බර | உயிருள்ள கோழியின் எடை |
-| **Dressing Yield** | Dressing yield | මස් අස්වැන්න (Dressing Yield) | இறைச்சி விகிதம் (Dressing Yield) |
-| **Break-Even Price** | Break-even price/kg | පාඩු නොවන මිල / කි.ග්‍රෑ. | சமநிலை விலை / கிலோ |
-| **Selling Price** | Selling price/kg | විකුණුම් මිල / කි.ග්‍රෑ. | விற்பனை விலை / கிலோ |
-| **Profit** | Profit/kg | ලාභය / කි.ග්‍රෑ. | இலாபம் / கிலோ |
-| **Expected Dressed Weight**| Expected dressed weight | ලැබෙන පිරිසිදු මස් බර | கிடைக்கும் இறைச்சி எடை |
-| **Currency Prefix** | `Rs. ` | `රු. ` | `ரூ. ` |
-| **Weight Suffix** | ` kg` | ` කි.ග්‍රෑ.` | ` கிலோ` |
-| **Copy Button** | Copy calculation | ගණනය පිටපත් කරන්න | கணக்கீட்டை நகலெடு |
-| **Copied Toast** | Copied! | පිටපත් කෙරිණි! | நகலெடுக்கப்பட்டது! |
-| **Reset Button** | Reset | යළි සකසන්න | மீட்டமை |
+| Metric / Term               | English                                | Sinhala (සිංහල)                 | Tamil (தமிழ்)                    |
+| :-------------------------- | :------------------------------------- | :------------------------------ | :------------------------------- |
+| **App Title**               | HenHouse \| Chicken Pricing Calculator | HenHouse \| කුකුල් මස් මිල ගණනය | HenHouse \| கோழி விலை கணிப்பான்  |
+| **Tagline**                 | Chicken Pricing Calculator             | කුකුල් මස් මිල ගණනය කිරීම       | கோழி இறைச்சி விலை கணிப்பான்      |
+| **Live Chicken**            | Live chicken                           | සජීවී කුකුල් මස්                | உயிருள்ள கோழி                    |
+| **Dressed Chicken**         | Dressed chicken                        | පිරිසිදු කළ කුකුල් මස්          | சுத்தம் செய்த கோழி               |
+| **Live Purchase Price**     | Live chicken purchase price            | සජීවී කුකුළන් මිලදී ගැනීමේ මිල  | உயிருள்ள கோழி கொள்முதல் விலை     |
+| **Profit Margin**           | Desired profit margin                  | බලාපොරොත්තු වන ලාභ ප්‍රතිශතය    | எதிர்பார்க்கும் இலாப விகிதம்     |
+| **Other Expenses**          | Other expenses                         | වෙනත් වියදම්                    | ஏனைய செலவுகள்                    |
+| **Live Chicken Weight**     | Live chicken weight                    | සජීවී කුකුළාගේ බර               | உயிருள்ள கோழியின் எடை            |
+| **Dressing Yield**          | Dressing yield                         | මස් අස්වැන්න (Dressing Yield)   | இறைச்சி விகிதம் (Dressing Yield) |
+| **Break-Even Price**        | Break-even price/kg                    | පාඩු නොවන මිල / කි.ග්‍රෑ.       | சமநிலை விலை / கிலோ               |
+| **Selling Price**           | Selling price/kg                       | විකුණුම් මිල / කි.ග්‍රෑ.        | விற்பனை விலை / கிலோ              |
+| **Profit**                  | Profit/kg                              | ලාභය / කි.ග්‍රෑ.                | இலாபம் / கிலோ                    |
+| **Expected Dressed Weight** | Expected dressed weight                | ලැබෙන පිරිසිදු මස් බර           | கிடைக்கும் இறைச்சி எடை           |
+| **Currency Prefix**         | `Rs. `                                 | `රු. `                          | `ரூ. `                           |
+| **Weight Suffix**           | ` kg`                                  | ` කි.ග්‍රෑ.`                    | ` கிலோ`                          |
+| **Copy Button**             | Copy calculation                       | ගණනය පිටපත් කරන්න               | கணக்கீட்டை நகலெடு                |
+| **Copied Toast**            | Copied!                                | පිටපත් කෙරිණි!                  | நகலெடுக்கப்பட்டது!               |
+| **Reset Button**            | Reset                                  | යළි සකසන්න                      | மீட்டமை                          |
 
 ---
 
