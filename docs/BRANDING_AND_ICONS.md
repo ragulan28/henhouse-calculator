@@ -53,6 +53,11 @@ None.
   - WhatsApp: `https://wa.me/94777649544` (Direct chat link for Sri Lankan mobile `0777 649 544`)
   - Facebook: `https://www.facebook.com/henhouse.lk` (Official page)
 - Header & Footer Social Channels: Quick-action shortcuts and footer contact bar.
+- In-Page Contact Card (`.contact-card`):
+  - Placed directly inside `<main>` beneath the calculation results cards for prominent user access.
+  - WhatsApp: `https://wa.me/94777649544` (Direct chat link for Sri Lankan mobile `0777 649 544`)
+  - Facebook: `https://www.facebook.com/henhouse.lk` (Official page)
+- Header & Footer Social Channels: Quick-action shortcuts and footer contact bar.
 
 ## Configuration
 

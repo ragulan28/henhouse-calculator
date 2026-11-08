@@ -1,334 +1,951 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#2a1d17">
-  <meta name="description" content="HenHouse Chicken Pricing Calculator">
-  <title>HenHouse | Chicken Pricing Calculator</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./favicon.ico" sizes="any">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <style>
-    :root {
-      color-scheme: light;
-      --primary: #2a1d17;
-      --primary2: #d97706;
-      --gold: #fdc258;
-      --ink: #231914;
-      --muted: #78685c;
-      --line: #e8ded2;
-      --bg: #f8f5ee;
-      --card: #fff;
-      --soft: #f9f1e3;
-      --danger: #b3261e;
-      --green: var(--primary);
-      --green2: var(--primary2);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); }
-    header { background: linear-gradient(135deg, #251a14 0%, #34241b 100%); color: white; padding: 25px 18px 23px; }
-    .header-inner, main { width: min(100% - 28px, 980px); margin: 0 auto; }
-    .header-inner { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
-    .brand { display:flex; align-items:center; gap:12px; }
-    .brand-logo { width:44px; height:44px; object-fit:contain; display:block; flex-shrink:0; }
-    .header-social { display:flex; gap:8px; align-items:center; }
-    .header-social-link { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px; background:rgba(255,255,255,.12); color:#fff; text-decoration:none; transition:background .15s ease, transform .15s ease; }
-    .header-social-link:hover { background:rgba(255,255,255,.24); transform:translateY(-1px); }
-    .header-social-link:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
-    .header-social-link svg { width:20px; height:20px; fill:currentColor; }
-    h1 { margin:0; font-size:clamp(22px, 4vw, 30px); letter-spacing:-.5px; }
-    .tagline { margin:5px 0 0; color:#e8dfd5; font-size:13px; }
-    main { padding:22px 0 42px; }
-    .intro { margin:0 0 17px; color:var(--muted); font-size:14px; line-height:1.5; }
-    .layout { display:grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap:16px; align-items:start; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:17px; padding:19px; box-shadow:0 5px 20px rgba(42,29,23,.04); }
-    h2 { font-size:17px; margin:0 0 15px; }
-    .field { margin-bottom:14px; }
-    label { display:block; font-size:13px; font-weight:650; margin-bottom:7px; }
-    .input-wrap { position:relative; }
-    input { width:100%; border:1px solid #ddd4c5; border-radius:10px; padding:12px 48px 12px 12px; font:inherit; font-size:16px; color:var(--ink); background:#fff; outline:none; }
-    input:focus { border-color:var(--primary2); box-shadow:0 0 0 3px rgba(217,119,6,.16); }
-    .unit { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:12px; pointer-events:none; }
-    .hint { color:var(--muted); font-size:11px; margin-top:5px; }
-    .actions { display:flex; gap:9px; flex-wrap:wrap; margin-top:18px; }
-    button { border:0; border-radius:10px; padding:11px 15px; font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
-    .primary { color:#fff; background:var(--primary); }
-    .primary:hover { background:#3c2a21; }
-    .secondary { color:var(--primary); background:var(--soft); }
-    .secondary:hover { background:#f2e4cc; }
-    button:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
-    .error { display:none; color:var(--danger); background:#fff1f1; padding:10px 12px; border-radius:9px; font-size:13px; margin-top:12px; }
-    .result-group + .result-group { border-top:1px solid var(--line); margin-top:16px; padding-top:16px; }
-    .result-title { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:9px; }
-    .result-title h3 { margin:0; font-size:14px; }
-    .pill { font-size:10px; font-weight:700; color:#854d0e; background:var(--soft); border-radius:30px; padding:5px 8px; }
-    .metric { display:flex; justify-content:space-between; gap:15px; padding:8px 0; border-bottom:1px solid #f2ece1; font-size:13px; }
-    .metric:last-child { border-bottom:0; }
-    .metric span:first-child { color:var(--muted); }
-    .metric strong { text-align:right; font-variant-numeric:tabular-nums; }
-    .highlight { background:var(--soft); margin:9px -9px 0; padding:10px 9px; border-radius:9px; }
-    .compare { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:10px; }
-    .compare-box { background:#fbf8f2; border:1px solid var(--line); border-radius:11px; padding:11px; }
-    .compare-box small { display:block; color:var(--muted); font-size:11px; margin-bottom:5px; }
-    .compare-box strong { font-size:17px; font-variant-numeric:tabular-nums; }
-    .note { color:var(--muted); font-size:11px; line-height:1.5; margin:14px 0 0; }
-    footer { text-align:center; color:var(--muted); font-size:12px; padding:0 15px 32px; }
-    .social-bar { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
-    .social-btn { display:inline-flex; align-items:center; gap:8px; padding:9px 15px; border-radius:12px; text-decoration:none; font-size:13px; font-weight:650; border:1px solid var(--line); background:#fff; color:var(--ink); box-shadow:0 3px 8px rgba(42,29,23,.03); transition:all .15s ease; }
-    .social-btn svg { width:18px; height:18px; flex-shrink:0; }
-    .social-btn.whatsapp { color:#186c3b; }
-    .social-btn.whatsapp svg { fill:#25D366; }
-    .social-btn.facebook { color:#18539e; }
-    .social-btn.facebook svg { fill:#1877F2; }
-    .social-btn:hover { border-color:var(--primary2); transform:translateY(-1px); box-shadow:0 5px 12px rgba(42,29,23,.07); }
-    .social-btn:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
-    .contact-card { margin-top:16px; display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; background:linear-gradient(to right, #fff, #faf6ee); }
-    .contact-info h2 { margin:0 0 4px; font-size:16px; }
-    .contact-info p { margin:0; color:var(--muted); font-size:13px; line-height:1.4; }
-    .contact-links { display:flex; gap:12px; flex-wrap:wrap; }
-    .contact-btn { display:inline-flex; align-items:center; gap:12px; padding:10px 18px; border-radius:12px; text-decoration:none; border:1px solid var(--line); transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
-    .contact-btn svg { width:24px; height:24px; flex-shrink:0; }
-    .contact-btn-text { display:flex; flex-direction:column; text-align:left; }
-    .contact-btn-sub { font-size:11px; text-transform:uppercase; letter-spacing:.5px; font-weight:700; opacity:.85; }
-    .contact-btn-main { font-size:15px; font-weight:750; }
-    .contact-btn.whatsapp { background:#edf9f0; color:#14592e; border-color:#c6ebd0; }
-    .contact-btn.whatsapp svg { fill:#25D366; }
-    .contact-btn.facebook { background:#eef4fc; color:#124685; border-color:#c9dbf2; }
-    .contact-btn.facebook svg { fill:#1877F2; }
-    .contact-btn:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,50,30,.08); }
-    .contact-btn.whatsapp:hover { border-color:#25D366; }
-    .contact-btn.facebook:hover { border-color:#1877F2; }
-    .contact-btn:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
-    @media (max-width:720px) { .layout { grid-template-columns:1fr; } .card { padding:16px; } }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <img class="brand-logo" src="./logo.png" alt="HenHouse Logo" width="44" height="44" onerror="this.onerror=null;this.src='./henhouse.png';">
-        <div>
-          <h1>HenHouse</h1>
-          <p class="tagline">Chicken Pricing Calculator</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2a1d17" />
+    <meta name="description" content="HenHouse Chicken Pricing Calculator" />
+    <title>HenHouse | Chicken Pricing Calculator</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --primary: #2a1d17;
+        --primary2: #d97706;
+        --gold: #fdc258;
+        --ink: #231914;
+        --muted: #78685c;
+        --line: #e8ded2;
+        --bg: #f8f5ee;
+        --card: #fff;
+        --soft: #f9f1e3;
+        --danger: #b3261e;
+        --green: var(--primary);
+        --green2: var(--primary2);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      header {
+        background: linear-gradient(135deg, #251a14 0%, #34241b 100%);
+        color: white;
+        padding: 25px 18px 23px;
+      }
+      .header-inner,
+      main {
+        width: min(100% - 28px, 980px);
+        margin: 0 auto;
+      }
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand-logo {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+        display: block;
+        flex-shrink: 0;
+      }
+      .header-social {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .header-social-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        text-decoration: none;
+        transition:
+          background 0.15s ease,
+          transform 0.15s ease;
+      }
+      .header-social-link:hover {
+        background: rgba(255, 255, 255, 0.24);
+        transform: translateY(-1px);
+      }
+      .header-social-link:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .header-social-link svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(22px, 4vw, 30px);
+        letter-spacing: -0.5px;
+      }
+      .tagline {
+        margin: 5px 0 0;
+        color: #e8dfd5;
+        font-size: 13px;
+      }
+      main {
+        padding: 22px 0 42px;
+      }
+      .intro {
+        margin: 0 0 17px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        gap: 16px;
+        align-items: start;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        padding: 19px;
+        box-shadow: 0 5px 20px rgba(42, 29, 23, 0.04);
+      }
+      h2 {
+        font-size: 17px;
+        margin: 0 0 15px;
+      }
+      .field {
+        margin-bottom: 14px;
+      }
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 650;
+        margin-bottom: 7px;
+      }
+      .input-wrap {
+        position: relative;
+      }
+      input {
+        width: 100%;
+        border: 1px solid #ddd4c5;
+        border-radius: 10px;
+        padding: 12px 48px 12px 12px;
+        font: inherit;
+        font-size: 16px;
+        color: var(--ink);
+        background: #fff;
+        outline: none;
+      }
+      input:focus {
+        border-color: var(--primary2);
+        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.16);
+      }
+      .unit {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        font-size: 12px;
+        pointer-events: none;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 11px;
+        margin-top: 5px;
+      }
+      .actions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      button {
+        border: 0;
+        border-radius: 10px;
+        padding: 11px 15px;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .primary {
+        color: #fff;
+        background: var(--primary);
+      }
+      .primary:hover {
+        background: #3c2a21;
+      }
+      .secondary {
+        color: var(--primary);
+        background: var(--soft);
+      }
+      .secondary:hover {
+        background: #f2e4cc;
+      }
+      button:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .error {
+        display: none;
+        color: var(--danger);
+        background: #fff1f1;
+        padding: 10px 12px;
+        border-radius: 9px;
+        font-size: 13px;
+        margin-top: 12px;
+      }
+      .result-group + .result-group {
+        border-top: 1px solid var(--line);
+        margin-top: 16px;
+        padding-top: 16px;
+      }
+      .result-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 9px;
+      }
+      .result-title h3 {
+        margin: 0;
+        font-size: 14px;
+      }
+      .pill {
+        font-size: 10px;
+        font-weight: 700;
+        color: #854d0e;
+        background: var(--soft);
+        border-radius: 30px;
+        padding: 5px 8px;
+      }
+      .metric {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 8px 0;
+        border-bottom: 1px solid #f2ece1;
+        font-size: 13px;
+      }
+      .metric:last-child {
+        border-bottom: 0;
+      }
+      .metric span:first-child {
+        color: var(--muted);
+      }
+      .metric strong {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      .highlight {
+        background: var(--soft);
+        margin: 9px -9px 0;
+        padding: 10px 9px;
+        border-radius: 9px;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+        margin-top: 10px;
+      }
+      .compare-box {
+        background: #fbf8f2;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        padding: 11px;
+      }
+      .compare-box small {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        margin-bottom: 5px;
+      }
+      .compare-box strong {
+        font-size: 17px;
+        font-variant-numeric: tabular-nums;
+      }
+      .note {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.5;
+        margin: 14px 0 0;
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 0 15px 32px;
+      }
+      .social-bar {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .social-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 15px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 650;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        box-shadow: 0 3px 8px rgba(42, 29, 23, 0.03);
+        transition: all 0.15s ease;
+      }
+      .social-btn svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+      .social-btn.whatsapp {
+        color: #186c3b;
+      }
+      .social-btn.whatsapp svg {
+        fill: #25d366;
+      }
+      .social-btn.facebook {
+        color: #18539e;
+      }
+      .social-btn.facebook svg {
+        fill: #1877f2;
+      }
+      .social-btn:hover {
+        border-color: var(--primary2);
+        transform: translateY(-1px);
+        box-shadow: 0 5px 12px rgba(42, 29, 23, 0.07);
+      }
+      .social-btn:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .contact-card {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        background: linear-gradient(to right, #fff, #faf6ee);
+      }
+      .contact-info h2 {
+        margin: 0 0 4px;
+        font-size: 16px;
+      }
+      .contact-info p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .contact-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .contact-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        border: 1px solid var(--line);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .contact-btn svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .contact-btn-text {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+      .contact-btn-sub {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        opacity: 0.85;
+      }
+      .contact-btn-main {
+        font-size: 15px;
+        font-weight: 750;
+      }
+      .contact-btn.whatsapp {
+        background: #edf9f0;
+        color: #14592e;
+        border-color: #c6ebd0;
+      }
+      .contact-btn.whatsapp svg {
+        fill: #25d366;
+      }
+      .contact-btn.facebook {
+        background: #eef4fc;
+        color: #124685;
+        border-color: #c9dbf2;
+      }
+      .contact-btn.facebook svg {
+        fill: #1877f2;
+      }
+      .contact-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(20, 50, 30, 0.08);
+      }
+      .contact-btn.whatsapp:hover {
+        border-color: #25d366;
+      }
+      .contact-btn.facebook:hover {
+        border-color: #1877f2;
+      }
+      .contact-btn:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .contact-card {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        background: linear-gradient(to right, #fff, #faf6ee);
+      }
+      .contact-info h2 {
+        margin: 0 0 4px;
+        font-size: 16px;
+      }
+      .contact-info p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .contact-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .contact-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        border: 1px solid var(--line);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .contact-btn svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .contact-btn-text {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+      .contact-btn-sub {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        opacity: 0.85;
+      }
+      .contact-btn-main {
+        font-size: 15px;
+        font-weight: 750;
+      }
+      .contact-btn.whatsapp {
+        background: #edf9f0;
+        color: #14592e;
+        border-color: #c6ebd0;
+      }
+      .contact-btn.whatsapp svg {
+        fill: #25d366;
+      }
+      .contact-btn.facebook {
+        background: #eef4fc;
+        color: #124685;
+        border-color: #c9dbf2;
+      }
+      .contact-btn.facebook svg {
+        fill: #1877f2;
+      }
+      .contact-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(20, 50, 30, 0.08);
+      }
+      .contact-btn.whatsapp:hover {
+        border-color: #25d366;
+      }
+      .contact-btn.facebook:hover {
+        border-color: #1877f2;
+      }
+      .contact-btn:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      @media (max-width: 720px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <div class="brand">
+          <img
+            class="brand-logo"
+            src="./logo.png"
+            alt="HenHouse Logo"
+            width="44"
+            height="44"
+            onerror="
+              this.onerror = null;
+              this.src = './henhouse.png';
+            "
+          />
+          <div>
+            <h1>HenHouse</h1>
+            <p class="tagline">Chicken Pricing Calculator</p>
+          </div>
+        </div>
+        <div class="header-social" aria-label="HenHouse Social and Contact">
+          <a
+            href="https://wa.me/94777649544"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="header-social-link"
+            title="Chat on WhatsApp (0777 649 544)"
+            aria-label="Chat on WhatsApp 0777 649 544"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://www.facebook.com/henhouse.lk"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="header-social-link"
+            title="Follow on Facebook (henhouse.lk)"
+            aria-label="Follow on Facebook henhouse.lk"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
+            </svg>
+          </a>
         </div>
       </div>
-      <div class="header-social" aria-label="HenHouse Social and Contact">
-        <a href="https://wa.me/94777649544" target="_blank" rel="noopener noreferrer" class="header-social-link" title="Chat on WhatsApp (0777 649 544)" aria-label="Chat on WhatsApp 0777 649 544">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        </a>
-        <a href="https://www.facebook.com/henhouse.lk" target="_blank" rel="noopener noreferrer" class="header-social-link" title="Follow on Facebook (henhouse.lk)" aria-label="Follow on Facebook henhouse.lk">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <p class="intro">Enter your chicken purchase cost and expenses to compare live-chicken and dressed-chicken selling prices.</p>
-    <div class="layout">
-      <section class="card" aria-labelledby="inputs-heading">
-        <h2 id="inputs-heading">Your inputs</h2>
-        <div class="field">
-          <label for="purchase">Live chicken purchase price</label>
-          <div class="input-wrap"><input id="purchase" type="number" min="0" step="0.01" value="800"><span class="unit">Rs./kg</span></div>
+    <main>
+      <p class="intro">
+        Enter your chicken purchase cost and expenses to compare live-chicken
+        and dressed-chicken selling prices.
+      </p>
+      <div class="layout">
+        <section class="card" aria-labelledby="inputs-heading">
+          <h2 id="inputs-heading">Your inputs</h2>
+          <div class="field">
+            <label for="purchase">Live chicken purchase price</label>
+            <div class="input-wrap">
+              <input
+                id="purchase"
+                type="number"
+                min="0"
+                step="0.01"
+                value="800"
+              /><span class="unit">Rs./kg</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="margin">Desired profit margin</label>
+            <div class="input-wrap">
+              <input
+                id="margin"
+                type="number"
+                min="0"
+                max="99.99"
+                step="0.1"
+                value="15"
+              /><span class="unit">%</span>
+            </div>
+            <div class="hint">
+              Margin is calculated as a percentage of the selling price.
+            </div>
+          </div>
+          <div class="field">
+            <label for="expenses">Other expenses</label>
+            <div class="input-wrap">
+              <input
+                id="expenses"
+                type="number"
+                min="0"
+                step="0.01"
+                value="50"
+              /><span class="unit">Rs./bird</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="weight">Live chicken weight</label>
+            <div class="input-wrap">
+              <input
+                id="weight"
+                type="number"
+                min="0.001"
+                step="0.001"
+                value="2"
+              /><span class="unit">kg</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="yield">Dressing yield</label>
+            <div class="input-wrap">
+              <input
+                id="yield"
+                type="number"
+                min="0.001"
+                max="100"
+                step="0.1"
+                value="71"
+              /><span class="unit">%</span>
+            </div>
+          </div>
+          <div id="error" class="error" role="alert"></div>
+          <div class="actions">
+            <button class="primary" id="copy">Copy calculation</button>
+            <button class="secondary" id="reset" type="button">Reset</button>
+          </div>
+        </section>
+
+        <section
+          class="card"
+          aria-labelledby="results-heading"
+          aria-live="polite"
+        >
+          <h2 id="results-heading">Calculated results</h2>
+          <div class="result-group">
+            <div class="result-title">
+              <h3>Total cost per bird</h3>
+              <span class="pill">COST</span>
+            </div>
+            <div class="metric highlight">
+              <span>Total cost</span
+              ><strong id="totalCost">Rs. 1,650.00</strong>
+            </div>
+          </div>
+          <div class="result-group">
+            <div class="result-title">
+              <h3>Live chicken</h3>
+              <span class="pill">LIVE</span>
+            </div>
+            <div class="metric">
+              <span>Break-even price/kg</span
+              ><strong id="liveBE">Rs. 825.00</strong>
+            </div>
+            <div class="metric">
+              <span>Selling price/kg</span
+              ><strong id="liveSP">Rs. 970.59</strong>
+            </div>
+            <div class="metric">
+              <span>Profit/kg</span><strong id="liveProfit">Rs. 145.59</strong>
+            </div>
+          </div>
+          <div class="result-group">
+            <div class="result-title">
+              <h3>Dressed chicken</h3>
+              <span class="pill">DRESSED</span>
+            </div>
+            <div class="metric">
+              <span>Expected dressed weight</span
+              ><strong id="dressedWeight">1.42 kg</strong>
+            </div>
+            <div class="metric">
+              <span>Break-even price/kg</span
+              ><strong id="dressedBE">Rs. 1,161.97</strong>
+            </div>
+            <div class="metric">
+              <span>Selling price/kg</span
+              ><strong id="dressedSP">Rs. 1,366.32</strong>
+            </div>
+            <div class="metric">
+              <span>Profit/kg</span
+              ><strong id="dressedProfit">Rs. 204.35</strong>
+            </div>
+          </div>
+          <div class="result-group">
+            <div class="result-title">
+              <h3>Price comparison</h3>
+              <span class="pill">COMPARE</span>
+            </div>
+            <div class="compare">
+              <div class="compare-box">
+                <small>Live profit/kg</small
+                ><strong id="compareLive">Rs. 145.59</strong>
+              </div>
+              <div class="compare-box">
+                <small>Dressed profit/kg</small
+                ><strong id="compareDressed">Rs. 204.35</strong>
+              </div>
+            </div>
+            <div class="metric highlight">
+              <span>Selling-price difference/kg</span
+              ><strong id="difference">Rs. 395.73</strong>
+            </div>
+          </div>
+          <p class="note">
+            Figures are estimates based on the inputs entered. Actual costs and
+            dressing yield may vary.
+          </p>
+        </section>
+      </div>
+
+      <section class="card contact-card" aria-labelledby="contact-heading">
+        <div class="contact-info">
+          <h2 id="contact-heading">Contact HenHouse</h2>
+          <p>
+            Order fresh chicken or inquire about daily wholesale and retail
+            pricing.
+          </p>
         </div>
-        <div class="field">
-          <label for="margin">Desired profit margin</label>
-          <div class="input-wrap"><input id="margin" type="number" min="0" max="99.99" step="0.1" value="15"><span class="unit">%</span></div>
-          <div class="hint">Margin is calculated as a percentage of the selling price.</div>
-        </div>
-        <div class="field">
-          <label for="expenses">Other expenses</label>
-          <div class="input-wrap"><input id="expenses" type="number" min="0" step="0.01" value="50"><span class="unit">Rs./bird</span></div>
-        </div>
-        <div class="field">
-          <label for="weight">Live chicken weight</label>
-          <div class="input-wrap"><input id="weight" type="number" min="0.001" step="0.001" value="2"><span class="unit">kg</span></div>
-        </div>
-        <div class="field">
-          <label for="yield">Dressing yield</label>
-          <div class="input-wrap"><input id="yield" type="number" min="0.001" max="100" step="0.1" value="71"><span class="unit">%</span></div>
-        </div>
-        <div id="error" class="error" role="alert"></div>
-        <div class="actions">
-          <button class="primary" id="copy">Copy calculation</button>
-          <button class="secondary" id="reset" type="button">Reset</button>
+        <div class="contact-links">
+          <a
+            href="https://wa.me/94777649544"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-btn whatsapp"
+            aria-label="Chat with HenHouse on WhatsApp (0777 649 544)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+              />
+            </svg>
+            <div class="contact-btn-text">
+              <span class="contact-btn-sub">WhatsApp</span>
+              <span class="contact-btn-main">0777 649 544</span>
+            </div>
+          </a>
+          <a
+            href="https://www.facebook.com/henhouse.lk"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-btn facebook"
+            aria-label="Visit HenHouse Facebook page henhouse.lk"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
+            </svg>
+            <div class="contact-btn-text">
+              <span class="contact-btn-sub">Facebook</span>
+              <span class="contact-btn-main">henhouse.lk</span>
+            </div>
+          </a>
         </div>
       </section>
+    </main>
+    <footer>
+      <div>HenHouse · Chicken Pricing Calculator</div>
+    </footer>
 
-      <section class="card" aria-labelledby="results-heading" aria-live="polite">
-        <h2 id="results-heading">Calculated results</h2>
-        <div class="result-group">
-          <div class="result-title"><h3>Total cost per bird</h3><span class="pill">COST</span></div>
-          <div class="metric highlight"><span>Total cost</span><strong id="totalCost">Rs. 1,650.00</strong></div>
-        </div>
-        <div class="result-group">
-          <div class="result-title"><h3>Live chicken</h3><span class="pill">LIVE</span></div>
-          <div class="metric"><span>Break-even price/kg</span><strong id="liveBE">Rs. 825.00</strong></div>
-          <div class="metric"><span>Selling price/kg</span><strong id="liveSP">Rs. 970.59</strong></div>
-          <div class="metric"><span>Profit/kg</span><strong id="liveProfit">Rs. 145.59</strong></div>
-        </div>
-        <div class="result-group">
-          <div class="result-title"><h3>Dressed chicken</h3><span class="pill">DRESSED</span></div>
-          <div class="metric"><span>Expected dressed weight</span><strong id="dressedWeight">1.42 kg</strong></div>
-          <div class="metric"><span>Break-even price/kg</span><strong id="dressedBE">Rs. 1,161.97</strong></div>
-          <div class="metric"><span>Selling price/kg</span><strong id="dressedSP">Rs. 1,366.32</strong></div>
-          <div class="metric"><span>Profit/kg</span><strong id="dressedProfit">Rs. 204.35</strong></div>
-        </div>
-        <div class="result-group">
-          <div class="result-title"><h3>Price comparison</h3><span class="pill">COMPARE</span></div>
-          <div class="compare">
-            <div class="compare-box"><small>Live profit/kg</small><strong id="compareLive">Rs. 145.59</strong></div>
-            <div class="compare-box"><small>Dressed profit/kg</small><strong id="compareDressed">Rs. 204.35</strong></div>
-          </div>
-          <div class="metric highlight"><span>Selling-price difference/kg</span><strong id="difference">Rs. 395.73</strong></div>
-        </div>
-        <p class="note">Figures are estimates based on the inputs entered. Actual costs and dressing yield may vary.</p>
-      </section>
-    </div>
+    <script>
+      (() => {
+        const ids = ["purchase", "margin", "expenses", "weight", "yield"];
+        const defaults = {
+          purchase: 800,
+          margin: 15,
+          expenses: 50,
+          weight: 2,
+          yield: 71,
+        };
+        const $ = (id) => document.getElementById(id);
+        const money = (value) =>
+          "Rs. " +
+          value.toLocaleString("en-LK", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+        let current = null;
 
-    <section class="card contact-card" aria-labelledby="contact-heading">
-      <div class="contact-info">
-        <h2 id="contact-heading">Contact HenHouse</h2>
-        <p>Order fresh chicken or inquire about daily wholesale and retail pricing.</p>
-      </div>
-      <div class="contact-links">
-        <a href="https://wa.me/94777649544" target="_blank" rel="noopener noreferrer" class="contact-btn whatsapp" aria-label="Chat with HenHouse on WhatsApp (0777 649 544)">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-          <div class="contact-btn-text">
-            <span class="contact-btn-sub">WhatsApp</span>
-            <span class="contact-btn-main">0777 649 544</span>
-          </div>
-        </a>
-        <a href="https://www.facebook.com/henhouse.lk" target="_blank" rel="noopener noreferrer" class="contact-btn facebook" aria-label="Visit HenHouse Facebook page henhouse.lk">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          <div class="contact-btn-text">
-            <span class="contact-btn-sub">Facebook</span>
-            <span class="contact-btn-main">henhouse.lk</span>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <div class="social-bar" aria-label="Social and Contact Channels">
-      <a href="https://wa.me/94777649544" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp" aria-label="Chat with HenHouse on WhatsApp (0777 649 544)">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        <span>WhatsApp: 0777 649 544</span>
-      </a>
-      <a href="https://www.facebook.com/henhouse.lk" target="_blank" rel="noopener noreferrer" class="social-btn facebook" aria-label="Visit HenHouse Facebook page: facebook.com/henhouse.lk">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        <span>facebook.com/henhouse.lk</span>
-      </a>
-    </div>
-    <div>HenHouse · Chicken Pricing Calculator</div>
-  </footer>
+        function calculate() {
+          const v = Object.fromEntries(
+            ids.map((id) => [id, Number($(id).value)]),
+          );
+          const error = $("error");
+          const invalid =
+            ids.some(
+              (id) => $(id).value.trim() === "" || !Number.isFinite(v[id]),
+            ) ||
+            v.purchase < 0 ||
+            v.margin < 0 ||
+            v.margin >= 100 ||
+            v.expenses < 0 ||
+            v.weight <= 0 ||
+            v.yield <= 0 ||
+            v.yield > 100;
+          if (invalid) {
+            error.textContent =
+              "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.";
+            error.style.display = "block";
+            $("copy").disabled = true;
+            $("copy").style.opacity = ".55";
+            current = null;
+            return;
+          }
+          error.style.display = "none";
+          $("copy").disabled = false;
+          $("copy").style.opacity = "1";
 
-<script>
-(() => {
-  const ids = ["purchase", "margin", "expenses", "weight", "yield"];
-  const defaults = { purchase: 800, margin: 15, expenses: 50, weight: 2, yield: 71 };
-  const $ = id => document.getElementById(id);
-  const money = value => "Rs. " + value.toLocaleString("en-LK", {minimumFractionDigits:2, maximumFractionDigits:2});
-  let current = null;
+          const cost = v.purchase * v.weight + v.expenses;
+          const dressedWeight = (v.weight * v.yield) / 100;
+          const liveBE = cost / v.weight;
+          const dressedBE = cost / dressedWeight;
+          const factor = 1 - v.margin / 100;
+          const liveSP = liveBE / factor;
+          const dressedSP = dressedBE / factor;
+          const liveProfit = liveSP - liveBE;
+          const dressedProfit = dressedSP - dressedBE;
+          const difference = dressedSP - liveSP;
 
-  function calculate() {
-    const v = Object.fromEntries(ids.map(id => [id, Number($(id).value)]));
-    const error = $("error");
-    const invalid = ids.some(id => $(id).value.trim() === "" || !Number.isFinite(v[id])) ||
-      v.purchase < 0 || v.margin < 0 || v.margin >= 100 || v.expenses < 0 ||
-      v.weight <= 0 || v.yield <= 0 || v.yield > 100;
-    if (invalid) {
-      error.textContent = "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.";
-      error.style.display = "block";
-      $("copy").disabled = true;
-      $("copy").style.opacity = ".55";
-      current = null;
-      return;
-    }
-    error.style.display = "none";
-    $("copy").disabled = false;
-    $("copy").style.opacity = "1";
+          const result = {
+            ...v,
+            cost,
+            dressedWeight,
+            liveBE,
+            dressedBE,
+            liveSP,
+            dressedSP,
+            liveProfit,
+            dressedProfit,
+            difference,
+          };
+          current = result;
+          $("totalCost").textContent = money(cost);
+          $("liveBE").textContent = money(liveBE);
+          $("liveSP").textContent = money(liveSP);
+          $("liveProfit").textContent = money(liveProfit);
+          $("dressedWeight").textContent = dressedWeight.toFixed(2) + " kg";
+          $("dressedBE").textContent = money(dressedBE);
+          $("dressedSP").textContent = money(dressedSP);
+          $("dressedProfit").textContent = money(dressedProfit);
+          $("compareLive").textContent = money(liveProfit);
+          $("compareDressed").textContent = money(dressedProfit);
+          $("difference").textContent = money(difference);
+        }
 
-    const cost = v.purchase * v.weight + v.expenses;
-    const dressedWeight = v.weight * v.yield / 100;
-    const liveBE = cost / v.weight;
-    const dressedBE = cost / dressedWeight;
-    const factor = 1 - v.margin / 100;
-    const liveSP = liveBE / factor;
-    const dressedSP = dressedBE / factor;
-    const liveProfit = liveSP - liveBE;
-    const dressedProfit = dressedSP - dressedBE;
-    const difference = dressedSP - liveSP;
+        ids.forEach((id) => $(id).addEventListener("input", calculate));
+        $("reset").addEventListener("click", () => {
+          ids.forEach((id) => ($(id).value = defaults[id]));
+          calculate();
+        });
+        $("copy").addEventListener("click", async () => {
+          if (!current) return;
+          const r = current;
+          const text = [
+            "HenHouse Chicken Pricing Calculator",
+            `Live purchase price: ${money(r.purchase)}/kg`,
+            `Desired profit margin: ${r.margin}%`,
+            `Other expenses: ${money(r.expenses)}/bird`,
+            `Live chicken weight: ${r.weight} kg`,
+            `Dressing yield: ${r.yield}%`,
+            "",
+            `Total cost per bird: ${money(r.cost)}`,
+            "",
+            "LIVE CHICKEN",
+            `Break-even price/kg: ${money(r.liveBE)}`,
+            `Selling price/kg: ${money(r.liveSP)}`,
+            `Profit/kg: ${money(r.liveProfit)}`,
+            "",
+            "DRESSED CHICKEN",
+            `Expected dressed weight: ${r.dressedWeight.toFixed(2)} kg`,
+            `Break-even price/kg: ${money(r.dressedBE)}`,
+            `Selling price/kg: ${money(r.dressedSP)}`,
+            `Profit/kg: ${money(r.dressedProfit)}`,
+            "",
+            `Selling-price difference/kg: ${money(r.difference)}`,
+          ].join("\n");
+          const btn = $("copy");
+          try {
+            await navigator.clipboard.writeText(text);
+            btn.textContent = "Copied!";
+            setTimeout(() => (btn.textContent = "Copy calculation"), 1800);
+          } catch {
+            const area = document.createElement("textarea");
+            area.value = text;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand("copy");
+            area.remove();
+            btn.textContent = "Copied!";
+            setTimeout(() => (btn.textContent = "Copy calculation"), 1800);
+          }
+        });
+        calculate();
 
-    const result = { ...v, cost, dressedWeight, liveBE, dressedBE, liveSP, dressedSP, liveProfit, dressedProfit, difference };
-    current = result;
-    $("totalCost").textContent = money(cost);
-    $("liveBE").textContent = money(liveBE);
-    $("liveSP").textContent = money(liveSP);
-    $("liveProfit").textContent = money(liveProfit);
-    $("dressedWeight").textContent = dressedWeight.toFixed(2) + " kg";
-    $("dressedBE").textContent = money(dressedBE);
-    $("dressedSP").textContent = money(dressedSP);
-    $("dressedProfit").textContent = money(dressedProfit);
-    $("compareLive").textContent = money(liveProfit);
-    $("compareDressed").textContent = money(dressedProfit);
-    $("difference").textContent = money(difference);
-  }
-
-  ids.forEach(id => $(id).addEventListener("input", calculate));
-  $("reset").addEventListener("click", () => {
-    ids.forEach(id => $(id).value = defaults[id]);
-    calculate();
-  });
-  $("copy").addEventListener("click", async () => {
-    if (!current) return;
-    const r = current;
-    const text = [
-      "HenHouse Chicken Pricing Calculator",
-      `Live purchase price: ${money(r.purchase)}/kg`,
-      `Desired profit margin: ${r.margin}%`,
-      `Other expenses: ${money(r.expenses)}/bird`,
-      `Live chicken weight: ${r.weight} kg`,
-      `Dressing yield: ${r.yield}%`,
-      "",
-      `Total cost per bird: ${money(r.cost)}`,
-      "",
-      "LIVE CHICKEN",
-      `Break-even price/kg: ${money(r.liveBE)}`,
-      `Selling price/kg: ${money(r.liveSP)}`,
-      `Profit/kg: ${money(r.liveProfit)}`,
-      "",
-      "DRESSED CHICKEN",
-      `Expected dressed weight: ${r.dressedWeight.toFixed(2)} kg`,
-      `Break-even price/kg: ${money(r.dressedBE)}`,
-      `Selling price/kg: ${money(r.dressedSP)}`,
-      `Profit/kg: ${money(r.dressedProfit)}`,
-      "",
-      `Selling-price difference/kg: ${money(r.difference)}`
-    ].join("\n");
-    const btn = $("copy");
-    try {
-      await navigator.clipboard.writeText(text);
-      btn.textContent = "Copied!";
-      setTimeout(() => btn.textContent = "Copy calculation", 1800);
-    } catch {
-      const area = document.createElement("textarea");
-      area.value = text; document.body.appendChild(area); area.select();
-      document.execCommand("copy"); area.remove();
-      btn.textContent = "Copied!";
-      setTimeout(() => btn.textContent = "Copy calculation", 1800);
-    }
-  });
-  calculate();
-
-  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-    window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
-  }
-})();
-</script>
-</body>
+        if (
+          "serviceWorker" in navigator &&
+          location.protocol.startsWith("http")
+        ) {
+          window.addEventListener("load", () =>
+            navigator.serviceWorker.register("./sw.js").catch(() => {}),
+          );
+        }
+      })();
+    </script>
+  </body>
 </html>
