@@ -7,6 +7,16 @@ Integrate the official HenHouse emblem logo (`henhouse.png`) into the header and
 ## Architecture
 
 - **Source Asset**: `henhouse.png` (3840×3840 RGBA master image with transparent alpha background).
+- **Brand Theme & Color Palette**:
+  - `--primary`: `#2a1d17` (Deep Roasted Barnwood Espresso, sampled from the logo's rooster contours and typography).
+  - `--primary2`: `#d97706` (Warm Honey Amber focus and active accents).
+  - `--gold`: `#fdc258` (Vibrant Golden Amber, sampled from the outer emblem rim).
+  - `--bg`: `#f8f5ee` (Farmhouse Cream Linen, sampled from the emblem's parchment banner).
+  - `--ink`: `#231914` (Deep Charcoal with 15.8:1 contrast on background).
+  - `--muted`: `#78685c` (Warm Earthy Slate with 5.3:1 contrast on white cards).
+  - `--soft`: `#f9f1e3` (Eggshell Honey highlight).
+  - `--line`: `#e8ded2` (Parchment Border).
+  - `--card`: `#ffffff` (Card background).
 - **Header Logo**: `logo.png` (256×256 RGBA optimized, 56 KB) rendered at 44×44 CSS pixels via `<img class="brand-logo">`, with an `onerror` fallback to `henhouse.png`.
 - **Favicons & Browser Icons**:
   - `favicon.ico`: Standard multi-size ICO (16×16, 32×32, 48×48) for desktop browsers and legacy clients.
