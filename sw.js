@@ -1,4 +1,4 @@
-const CACHE_NAME = "henhouse-calculator-v5";
+const CACHE_NAME = "henhouse-calculator-v6";
 const FILES = [
   "./",
   "./index.html",

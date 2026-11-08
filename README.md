@@ -24,9 +24,10 @@ Users can enter live bird purchase prices, operating expenses, live chicken weig
 
 ## ✨ Features
 
+- **🇱🇰 Trilingual Sri Lankan Support**: Full native support for English, Sinhala (සිංහල), and Tamil (தமிழ்) with authentic poultry market terminology and Sri Lankan currency formatting (`Rs.` / `රු.` / `ரூ.`).
 - **⚡ Instant Real-Time Calculations**: Calculates break-even prices, selling prices, and profit margins on every keystroke.
 - **⚖️ Live vs. Dressed Comparison**: Side-by-side comparison of profit per kilogram and selling price difference.
-- **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS.
+- **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS in the selected language.
 - **📱 PWA & 100% Offline Support**: Installable directly to mobile home screens (iOS & Android) with local caching via Service Worker.
 - **🎨 Brand-Aligned Design**: Warm barnwood espresso and golden amber color theme crafted from the official HenHouse emblem.
 - **💬 Direct Business Integration**: Seamless WhatsApp (`0777 649 544`) and Facebook (`facebook.com/henhouse.lk`) connectivity.
@@ -80,7 +81,8 @@ henhouse-calculator/
 ├── icon-192.png            # 192×192 Android PWA icon
 ├── icon-512.png            # 512×512 Android PWA splash/maskable icon
 ├── docs/
-│   └── BRANDING_AND_ICONS.md # Technical documentation for design & branding
+│   ├── BRANDING_AND_ICONS.md # Technical documentation for design & branding
+│   └── LOCALIZATION.md       # Trilingual (EN, SI, TA) architecture & terminology
 └── README.md               # Project documentation
 ```
 

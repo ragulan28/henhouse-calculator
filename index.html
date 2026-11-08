@@ -32,6 +32,11 @@
           -apple-system,
           BlinkMacSystemFont,
           "Segoe UI",
+          Roboto,
+          "Noto Sans Sinhala",
+          "Noto Sans Tamil",
+          "Iskoola Pota",
+          "Nirmala UI",
           sans-serif;
       }
       * {
@@ -70,6 +75,47 @@
         object-fit: contain;
         display: block;
         flex-shrink: 0;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .lang-switch {
+        display: inline-flex;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 3px;
+        gap: 2px;
+      }
+      .lang-btn {
+        background: transparent;
+        color: #e8ded2;
+        border: 0;
+        border-radius: 9px;
+        padding: 6px 11px;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 650;
+        cursor: pointer;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
+      }
+      .lang-btn:hover {
+        background: rgba(255, 255, 255, 0.22);
+        color: #fff;
+      }
+      .lang-btn.active {
+        background: var(--gold);
+        color: var(--primary);
+        font-weight: 750;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+      .lang-btn:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 1px;
       }
       .header-social {
         display: flex;
@@ -469,11 +515,19 @@
         .actions {
           margin-top: 18px;
         }
+        .header-right {
+          width: 100%;
+          justify-content: space-between;
+        }
       }
       @media (max-width: 480px) {
         .compare {
           grid-template-columns: 1fr;
           gap: 8px;
+        }
+        .lang-btn {
+          padding: 5px 8px;
+          font-size: 11px;
         }
       }
     </style>
@@ -495,52 +549,82 @@
           />
           <div>
             <h1>HenHouse</h1>
-            <p class="tagline">Chicken Pricing Calculator</p>
+            <p class="tagline" data-i18n="tagline">Chicken Pricing Calculator</p>
           </div>
         </div>
-        <div class="header-social" aria-label="HenHouse Social and Contact">
-          <a
-            href="https://wa.me/94777649544"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="header-social-link"
-            title="Chat on WhatsApp (0777 649 544)"
-            aria-label="Chat on WhatsApp 0777 649 544"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://www.facebook.com/henhouse.lk"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="header-social-link"
-            title="Follow on Facebook (henhouse.lk)"
-            aria-label="Follow on Facebook henhouse.lk"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-              />
-            </svg>
-          </a>
+        <div class="header-right">
+          <div class="lang-switch" role="group" aria-label="Language selector">
+            <button
+              type="button"
+              class="lang-btn active"
+              data-lang="en"
+              aria-pressed="true"
+            >
+              English
+            </button>
+            <button
+              type="button"
+              class="lang-btn"
+              data-lang="si"
+              aria-pressed="false"
+            >
+              සිංහල
+            </button>
+            <button
+              type="button"
+              class="lang-btn"
+              data-lang="ta"
+              aria-pressed="false"
+            >
+              தமிழ்
+            </button>
+          </div>
+          <div class="header-social" aria-label="HenHouse Social and Contact">
+            <a
+              href="https://wa.me/94777649544"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="header-social-link"
+              title="Chat on WhatsApp (0777 649 544)"
+              aria-label="Chat on WhatsApp 0777 649 544"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.facebook.com/henhouse.lk"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="header-social-link"
+              title="Follow on Facebook (henhouse.lk)"
+              aria-label="Follow on Facebook henhouse.lk"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </header>
 
     <main>
-      <p class="intro">
+      <p class="intro" data-i18n="intro">
         Enter your chicken purchase cost and expenses to compare live-chicken
         and dressed-chicken selling prices.
       </p>
       <div class="layout">
         <section class="card" aria-labelledby="inputs-heading">
-          <h2 id="inputs-heading">Your inputs</h2>
+          <h2 id="inputs-heading" data-i18n="inputsHeading">Your inputs</h2>
           <div class="field">
-            <label for="purchase">Live chicken purchase price</label>
+            <label for="purchase" data-i18n="purchaseLabel"
+              >Live chicken purchase price</label
+            >
             <div class="input-wrap">
               <input
                 id="purchase"
@@ -548,11 +632,13 @@
                 min="0"
                 step="0.01"
                 value="800"
-              /><span class="unit">Rs./kg</span>
+              /><span class="unit" data-i18n="purchaseUnit">Rs./kg</span>
             </div>
           </div>
           <div class="field">
-            <label for="margin">Desired profit margin</label>
+            <label for="margin" data-i18n="marginLabel"
+              >Desired profit margin</label
+            >
             <div class="input-wrap">
               <input
                 id="margin"
@@ -563,12 +649,12 @@
                 value="15"
               /><span class="unit">%</span>
             </div>
-            <div class="hint">
+            <div class="hint" data-i18n="marginHint">
               Margin is calculated as a percentage of the selling price.
             </div>
           </div>
           <div class="field">
-            <label for="expenses">Other expenses</label>
+            <label for="expenses" data-i18n="expensesLabel">Other expenses</label>
             <div class="input-wrap">
               <input
                 id="expenses"
@@ -576,11 +662,11 @@
                 min="0"
                 step="0.01"
                 value="50"
-              /><span class="unit">Rs./bird</span>
+              /><span class="unit" data-i18n="expensesUnit">Rs./bird</span>
             </div>
           </div>
           <div class="field">
-            <label for="weight">Live chicken weight</label>
+            <label for="weight" data-i18n="weightLabel">Live chicken weight</label>
             <div class="input-wrap">
               <input
                 id="weight"
@@ -588,11 +674,11 @@
                 min="0.001"
                 step="0.001"
                 value="2"
-              /><span class="unit">kg</span>
+              /><span class="unit" data-i18n="weightUnit">kg</span>
             </div>
           </div>
           <div class="field">
-            <label for="yield">Dressing yield</label>
+            <label for="yield" data-i18n="yieldLabel">Dressing yield</label>
             <div class="input-wrap">
               <input
                 id="yield"
@@ -606,8 +692,17 @@
           </div>
           <div id="error" class="error" role="alert"></div>
           <div class="actions">
-            <button class="primary" id="copy">Copy calculation</button>
-            <button class="secondary" id="reset" type="button">Reset</button>
+            <button class="primary" id="copy" data-i18n="copyBtn">
+              Copy calculation
+            </button>
+            <button
+              class="secondary"
+              id="reset"
+              type="button"
+              data-i18n="resetBtn"
+            >
+              Reset
+            </button>
           </div>
         </section>
 
@@ -616,58 +711,61 @@
           aria-labelledby="results-heading"
           aria-live="polite"
         >
-          <h2 id="results-heading">Calculated results</h2>
+          <h2 id="results-heading" data-i18n="resultsHeading">
+            Calculated results
+          </h2>
           <div class="result-group">
             <div class="result-title">
-              <h3>Live chicken</h3>
-              <span class="pill">LIVE</span>
+              <h3 data-i18n="liveTitle">Live chicken</h3>
+              <span class="pill" data-i18n="livePill">LIVE</span>
             </div>
             <div class="metric">
-              <span>Break-even price/kg</span
+              <span data-i18n="liveBELabel">Break-even price/kg</span
               ><strong id="liveBE">Rs. 825.00</strong>
             </div>
             <div class="metric">
-              <span>Selling price/kg</span>
+              <span data-i18n="liveSPLabel">Selling price/kg</span>
               <strong id="liveSP">Rs. 970.59</strong>
             </div>
             <div class="metric">
-              <span>Profit/kg</span><strong id="liveProfit">Rs. 145.59</strong>
+              <span data-i18n="liveProfitLabel">Profit/kg</span
+              ><strong id="liveProfit">Rs. 145.59</strong>
             </div>
           </div>
           <div class="result-group">
             <div class="result-title">
-              <h3>Dressed chicken</h3>
-              <span class="pill">DRESSED</span>
+              <h3 data-i18n="dressedTitle">Dressed chicken</h3>
+              <span class="pill" data-i18n="dressedPill">DRESSED</span>
             </div>
             <div class="metric">
-              <span>Expected dressed weight</span
+              <span data-i18n="dressedWeightLabel">Expected dressed weight</span
               ><strong id="dressedWeight">1.42 kg</strong>
             </div>
             <div class="metric">
-              <span>Break-even price/kg</span
+              <span data-i18n="dressedBELabel">Break-even price/kg</span
               ><strong id="dressedBE">Rs. 1,161.97</strong>
             </div>
             <div class="metric">
-              <span>Selling price/kg</span>
+              <span data-i18n="dressedSPLabel">Selling price/kg</span>
               <strong id="dressedSP">Rs. 1,366.32</strong>
             </div>
             <div class="metric">
-              <span>Profit/kg</span
+              <span data-i18n="dressedProfitLabel">Profit/kg</span
               ><strong id="dressedProfit">Rs. 204.35</strong>
             </div>
           </div>
           <div class="result-group">
             <div class="result-title">
-              <h3>Selling price</h3>
-              <span class="pill">SELLING PRICE</span>
+              <h3 data-i18n="spHeading">Selling price</h3>
+              <span class="pill" data-i18n="spPill">SELLING PRICE</span>
             </div>
             <div class="compare">
               <div class="compare-box">
-                <small>Live chicken / kg</small>
+                <small data-i18n="spLiveCard">Live chicken / kg</small>
                 <strong id="compareLive">Rs. 970.59</strong>
               </div>
               <div class="compare-box">
-                <small>Dressed chicken / kg</small>
+                <small data-i18n="spDressedCard">Dressed chicken / kg</small>
                 <strong id="compareDressed">Rs. 1,366.32</strong>
               </div>
             </div>
@@ -677,8 +775,8 @@
 
       <section class="card contact-card" aria-labelledby="contact-heading">
         <div class="contact-info">
-          <h2 id="contact-heading">Contact HenHouse</h2>
-          <p>
+          <h2 id="contact-heading" data-i18n="contactHeading">Contact HenHouse</h2>
+          <p data-i18n="contactDesc">
             Order fresh chicken or inquire about daily wholesale and retail
             pricing.
           </p>
@@ -722,7 +820,7 @@
       </section>
     </main>
     <footer>
-      <div>HenHouse · Chicken Pricing Calculator</div>
+      <div data-i18n="footerText">HenHouse · Chicken Pricing Calculator</div>
     </footer>
 
     <script>
@@ -736,13 +834,238 @@
           yield: 71,
         };
         const $ = (id) => document.getElementById(id);
+
+        const I18N = {
+          en: {
+            title: "HenHouse | Chicken Pricing Calculator",
+            tagline: "Chicken Pricing Calculator",
+            intro:
+              "Enter your chicken purchase cost and expenses to compare live-chicken and dressed-chicken selling prices.",
+            inputsHeading: "Your inputs",
+            purchaseLabel: "Live chicken purchase price",
+            purchaseUnit: "Rs./kg",
+            marginLabel: "Desired profit margin",
+            marginHint:
+              "Margin is calculated as a percentage of the selling price.",
+            expensesLabel: "Other expenses",
+            expensesUnit: "Rs./bird",
+            weightLabel: "Live chicken weight",
+            weightUnit: "kg",
+            yieldLabel: "Dressing yield",
+            copyBtn: "Copy calculation",
+            copiedText: "Copied!",
+            resetBtn: "Reset",
+            errorMsg:
+              "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.",
+            resultsHeading: "Calculated results",
+            liveTitle: "Live chicken",
+            livePill: "LIVE",
+            liveBELabel: "Break-even price/kg",
+            liveSPLabel: "Selling price/kg",
+            liveProfitLabel: "Profit/kg",
+            dressedTitle: "Dressed chicken",
+            dressedPill: "DRESSED",
+            dressedWeightLabel: "Expected dressed weight",
+            dressedBELabel: "Break-even price/kg",
+            dressedSPLabel: "Selling price/kg",
+            dressedProfitLabel: "Profit/kg",
+            spHeading: "Selling price",
+            spPill: "SELLING PRICE",
+            spLiveCard: "Live chicken / kg",
+            spDressedCard: "Dressed chicken / kg",
+            contactHeading: "Contact HenHouse",
+            contactDesc:
+              "Order fresh chicken or inquire about daily wholesale and retail pricing.",
+            footerText: "HenHouse · Chicken Pricing Calculator",
+            currencyPrefix: "Rs. ",
+            weightSuffix: " kg",
+            clipTitle: "HenHouse Chicken Pricing Calculator",
+            clipLivePurchase: "Live purchase price",
+            clipMargin: "Desired profit margin",
+            clipExpenses: "Other expenses",
+            clipLiveWeight: "Live chicken weight",
+            clipYield: "Dressing yield",
+            clipLiveSection: "LIVE CHICKEN",
+            clipDressedSection: "DRESSED CHICKEN",
+            clipLiveBE: "Break-even price/kg",
+            clipLiveSP: "Selling price/kg",
+            clipLiveProfit: "Profit/kg",
+            clipDressedWeight: "Expected dressed weight",
+            clipDressedBE: "Break-even price/kg",
+            clipDressedSP: "Selling price/kg",
+            clipDressedProfit: "Profit/kg",
+            clipPerKg: "/kg",
+            clipPerBird: "/bird",
+          },
+          si: {
+            title: "HenHouse | කුකුල් මස් මිල ගණනය",
+            tagline: "කුකුල් මස් මිල ගණනය කිරීම",
+            intro:
+              "සජීවී සහ පිරිසිදු කළ කුකුල් මස්වල විකුණුම් මිල සහ ලාභය සංසන්දනය කිරීම සඳහා ඔබේ වියදම් ඇතුළත් කරන්න.",
+            inputsHeading: "ඔබේ දත්ත",
+            purchaseLabel: "සජීවී කුකුළන් මිලදී ගැනීමේ මිල",
+            purchaseUnit: "රු./කි.ග්‍රෑ.",
+            marginLabel: "බලාපොරොත්තු වන ලාභ ප්‍රතිශතය",
+            marginHint:
+              "ලාභ ප්‍රතිශතය ගණනය කරනු ලබන්නේ විකුණුම් මිල පදනම් කරගෙනය.",
+            expensesLabel: "වෙනත් වියදම්",
+            expensesUnit: "රු./කුකුලෙකුට",
+            weightLabel: "සජීවී කුකුළාගේ බර",
+            weightUnit: "කි.ග්‍රෑ.",
+            yieldLabel: "මස් අස්වැන්න (Dressing Yield)",
+            copyBtn: "ගණනය පිටපත් කරන්න",
+            copiedText: "පිටපත් කෙරිණි!",
+            resetBtn: "යළි සකසන්න",
+            errorMsg:
+              "කරුණාකර නිවැරදි අගයන් ඇතුළත් කරන්න. ලාභ ප්‍රතිශතය 100%ට අඩු විය යුතු අතර, බර සහ අස්වැන්න 0ට වැඩි විය යුතුය.",
+            resultsHeading: "ගණනය කළ ප්‍රතිඵල",
+            liveTitle: "සජීවී කුකුල් මස්",
+            livePill: "සජීවී",
+            liveBELabel: "පාඩු නොවන මිල / කි.ග්‍රෑ.",
+            liveSPLabel: "විකුණුම් මිල / කි.ග්‍රෑ.",
+            liveProfitLabel: "ලාභය / කි.ග්‍රෑ.",
+            dressedTitle: "පිරිසිදු කළ කුකුල් මස්",
+            dressedPill: "පිරිසිදු කළ",
+            dressedWeightLabel: "ලැබෙන පිරිසිදු මස් බර",
+            dressedBELabel: "පාඩු නොවන මිල / කි.ග්‍රෑ.",
+            dressedSPLabel: "විකුණුම් මිල / කි.ග්‍රෑ.",
+            dressedProfitLabel: "ලාභය / කි.ග්‍රෑ.",
+            spHeading: "විකුණුම් මිල",
+            spPill: "විකුණුම් මිල",
+            spLiveCard: "සජීවී කුකුල් මස් / කි.ග්‍රෑ.",
+            spDressedCard: "පිරිසිදු කළ මස් / කි.ග්‍රෑ.",
+            contactHeading: "HenHouse අමතන්න",
+            contactDesc:
+              "නැවුම් කුකුල් මස් ඇණවුම් කිරීමට සහ දෛනික තොග/සිල්ලර මිල ගණන් දැනගැනීමට අමතන්න.",
+            footerText: "HenHouse · කුකුල් මස් මිල ගණනය කිරීම",
+            currencyPrefix: "රු. ",
+            weightSuffix: " කි.ග්‍රෑ.",
+            clipTitle: "HenHouse කුකුල් මස් මිල ගණනය කිරීම",
+            clipLivePurchase: "සජීවී කුකුළන් මිලදී ගැනීමේ මිල",
+            clipMargin: "බලාපොරොත්තු වන ලාභ ප්‍රතිශතය",
+            clipExpenses: "වෙනත් වියදම්",
+            clipLiveWeight: "සජීවී කුකුළාගේ බර",
+            clipYield: "මස් අස්වැන්න",
+            clipLiveSection: "සජීවී කුකුල් මස් (LIVE CHICKEN)",
+            clipDressedSection: "පිරිසිදු කළ කුකුල් මස් (DRESSED CHICKEN)",
+            clipLiveBE: "පාඩු නොවන මිල / කි.ග්‍රෑ.",
+            clipLiveSP: "විකුණුම් මිල / කි.ග්‍රෑ.",
+            clipLiveProfit: "ලාභය / කි.ග්‍රෑ.",
+            clipDressedWeight: "ලැබෙන පිරිසිදු මස් බර",
+            clipDressedBE: "පාඩු නොවන මිල / කි.ග්‍රෑ.",
+            clipDressedSP: "විකුණුම් මිල / කි.ග්‍රෑ.",
+            clipDressedProfit: "ලාභය / කි.ග්‍රෑ.",
+            clipPerKg: "/කි.ග්‍රෑ.",
+            clipPerBird: "/කුකුලෙකුට",
+          },
+          ta: {
+            title: "HenHouse | கோழி விலை கணிப்பான்",
+            tagline: "கோழி இறைச்சி விலை கணிப்பான்",
+            intro:
+              "உயிருள்ள மற்றும் சுத்தம் செய்த கோழியின் விற்பனை விலை, லாபத்தை கணக்கிட உங்கள் செலவு விபரங்களை உள்ளிடவும்.",
+            inputsHeading: "உங்கள் உள்ளீடுகள்",
+            purchaseLabel: "உயிருள்ள கோழி கொள்முதல் விலை",
+            purchaseUnit: "ரூ./கிலோ",
+            marginLabel: "எதிர்பார்க்கும் இலாப விகிதம்",
+            marginHint:
+              "இலாப விகிதம் விற்பனை விலையின் சதவீதமாக கணக்கிடப்படுகிறது.",
+            expensesLabel: "ஏனைய செலவுகள்",
+            expensesUnit: "ரூ./கோழி ஒன்றுக்கு",
+            weightLabel: "உயிருள்ள கோழியின் எடை",
+            weightUnit: "கிலோ",
+            yieldLabel: "இறைச்சி விகிதம் (Dressing Yield)",
+            copyBtn: "கணக்கீட்டை நகலெடு",
+            copiedText: "நகலெடுக்கப்பட்டது!",
+            resetBtn: "மீட்டமை",
+            errorMsg:
+              "தயவுசெய்து சரியான எண்களை உள்ளிடவும். லாப விகிதம் 100% ஐ விட குறைவாகவும், எடை மற்றும் இறைச்சி விகிதம் 0 ஐ விட அதிகமாகவும் இருக்க வேண்டும்.",
+            resultsHeading: "கணக்கிடப்பட்ட முடிவுகள்",
+            liveTitle: "உயிருள்ள கோழி",
+            livePill: "உயிருள்ள",
+            liveBELabel: "சமநிலை விலை / கிலோ",
+            liveSPLabel: "விற்பனை விலை / கிலோ",
+            liveProfitLabel: "இலாபம் / கிலோ",
+            dressedTitle: "சுத்தம் செய்த கோழி",
+            dressedPill: "சுத்தம் செய்த",
+            dressedWeightLabel: "கிடைக்கும் இறைச்சி எடை",
+            dressedBELabel: "சமநிலை விலை / கிலோ",
+            dressedSPLabel: "விற்பனை விலை / கிலோ",
+            dressedProfitLabel: "இலாபம் / கிலோ",
+            spHeading: "விற்பனை விலை",
+            spPill: "விற்பனை விலை",
+            spLiveCard: "உயிருள்ள கோழி / கிலோ",
+            spDressedCard: "சுத்தம் செய்த கோழி / கிலோ",
+            contactHeading: "HenHouse உடன் தொடர்பு கொள்ள",
+            contactDesc:
+              "புதிய கோழி இறைச்சி ஆர்டர்கள் மற்றும் தினசரி மொத்த, சில்லறை விலை விபரங்களுக்கு தொடர்பு கொள்ளவும்.",
+            footerText: "HenHouse · கோழி இறைச்சி விலை கணிப்பான்",
+            currencyPrefix: "ரூ. ",
+            weightSuffix: " கிலோ",
+            clipTitle: "HenHouse கோழி இறைச்சி விலை கணிப்பான்",
+            clipLivePurchase: "உயிருள்ள கோழி கொள்முதல் விலை",
+            clipMargin: "எதிர்பார்க்கும் இலாப விகிதம்",
+            clipExpenses: "ஏனைய செலவுகள்",
+            clipLiveWeight: "உயிருள்ள கோழியின் எடை",
+            clipYield: "இறைச்சி விகிதம்",
+            clipLiveSection: "உயிருள்ள கோழி (LIVE CHICKEN)",
+            clipDressedSection: "சுத்தம் செய்த கோழி (DRESSED CHICKEN)",
+            clipLiveBE: "சமநிலை விலை / கிலோ",
+            clipLiveSP: "விற்பனை விலை / கிலோ",
+            clipLiveProfit: "இலாபம் / கிலோ",
+            clipDressedWeight: "கிடைக்கும் இறைச்சி எடை",
+            clipDressedBE: "சமநிலை விலை / கிலோ",
+            clipDressedSP: "விற்பனை விலை / கிலோ",
+            clipDressedProfit: "இலாபம் / கிலோ",
+            clipPerKg: "/கிலோ",
+            clipPerBird: "/கோழி ஒன்றுக்கு",
+          },
+        };
+
+        let currentLang = "en";
+        try {
+          const saved = localStorage.getItem("henhouse_lang");
+          if (saved && I18N[saved]) {
+            currentLang = saved;
+          } else if (navigator.language) {
+            const code = navigator.language.slice(0, 2).toLowerCase();
+            if (code === "si") currentLang = "si";
+            else if (code === "ta") currentLang = "ta";
+          }
+        } catch {}
+
         const money = (value) =>
-          "Rs. " +
+          (I18N[currentLang]?.currencyPrefix || "Rs. ") +
           value.toLocaleString("en-LK", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           });
+
         let current = null;
+
+        function setLanguage(lang) {
+          if (!I18N[lang]) lang = "en";
+          currentLang = lang;
+          document.documentElement.lang = lang;
+          document.title = I18N[lang].title;
+          try {
+            localStorage.setItem("henhouse_lang", lang);
+          } catch {}
+
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            if (I18N[lang][key] !== undefined) {
+              el.textContent = I18N[lang][key];
+            }
+          });
+
+          document.querySelectorAll(".lang-btn").forEach((btn) => {
+            const isActive = btn.getAttribute("data-lang") === lang;
+            btn.classList.toggle("active", isActive);
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+
+          calculate();
+        }
 
         function calculate() {
           const v = Object.fromEntries(
@@ -762,6 +1085,7 @@
             v.yield > 100;
           if (invalid) {
             error.textContent =
+              I18N[currentLang]?.errorMsg ||
               "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.";
             error.style.display = "block";
             $("copy").disabled = true;
@@ -800,7 +1124,9 @@
           $("liveBE").textContent = money(liveBE);
           $("liveSP").textContent = money(liveSP);
           $("liveProfit").textContent = money(liveProfit);
-          $("dressedWeight").textContent = dressedWeight.toFixed(2) + " kg";
+          $("dressedWeight").textContent =
+            dressedWeight.toFixed(2) +
+            (I18N[currentLang]?.weightSuffix || " kg");
           $("dressedBE").textContent = money(dressedBE);
           $("dressedSP").textContent = money(dressedSP);
           $("dressedProfit").textContent = money(dressedProfit);
@@ -814,33 +1140,47 @@
           ids.forEach((id) => ($(id).value = defaults[id]));
           calculate();
         });
+
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const lang = btn.getAttribute("data-lang");
+            if (lang && lang !== currentLang) {
+              setLanguage(lang);
+            }
+          });
+        });
+
         $("copy").addEventListener("click", async () => {
           if (!current) return;
           const r = current;
+          const t = I18N[currentLang] || I18N.en;
           const text = [
-            "HenHouse Chicken Pricing Calculator",
-            `Live purchase price: ${money(r.purchase)}/kg`,
-            `Desired profit margin: ${r.margin}%`,
-            `Other expenses: ${money(r.expenses)}/bird`,
-            `Live chicken weight: ${r.weight} kg`,
-            `Dressing yield: ${r.yield}%`,
+            t.clipTitle,
+            `${t.clipLivePurchase}: ${money(r.purchase)}${t.clipPerKg}`,
+            `${t.clipMargin}: ${r.margin}%`,
+            `${t.clipExpenses}: ${money(r.expenses)}${t.clipPerBird}`,
+            `${t.clipLiveWeight}: ${r.weight}${t.weightSuffix}`,
+            `${t.clipYield}: ${r.yield}%`,
             "",
-            "LIVE CHICKEN",
-            `Break-even price/kg: ${money(r.liveBE)}`,
-            `Selling price/kg: ${money(r.liveSP)}`,
-            `Profit/kg: ${money(r.liveProfit)}`,
+            t.clipLiveSection,
+            `${t.clipLiveBE}: ${money(r.liveBE)}`,
+            `${t.clipLiveSP}: ${money(r.liveSP)}`,
+            `${t.clipLiveProfit}: ${money(r.liveProfit)}`,
             "",
-            "DRESSED CHICKEN",
-            `Expected dressed weight: ${r.dressedWeight.toFixed(2)} kg`,
-            `Break-even price/kg: ${money(r.dressedBE)}`,
-            `Selling price/kg: ${money(r.dressedSP)}`,
-            `Profit/kg: ${money(r.dressedProfit)}`,
+            t.clipDressedSection,
+            `${t.clipDressedWeight}: ${r.dressedWeight.toFixed(2)}${t.weightSuffix}`,
+            `${t.clipDressedBE}: ${money(r.dressedBE)}`,
+            `${t.clipDressedSP}: ${money(r.dressedSP)}`,
+            `${t.clipDressedProfit}: ${money(r.dressedProfit)}`,
           ].join("\n");
           const btn = $("copy");
+          const prevLabel = t.copyBtn;
           try {
             await navigator.clipboard.writeText(text);
-            btn.textContent = "Copied!";
-            setTimeout(() => (btn.textContent = "Copy calculation"), 1800);
+            btn.textContent = t.copiedText;
+            setTimeout(() => {
+              if (btn.textContent === t.copiedText) btn.textContent = prevLabel;
+            }, 1800);
           } catch {
             const area = document.createElement("textarea");
             area.value = text;
@@ -848,11 +1188,14 @@
             area.select();
             document.execCommand("copy");
             area.remove();
-            btn.textContent = "Copied!";
-            setTimeout(() => (btn.textContent = "Copy calculation"), 1800);
+            btn.textContent = t.copiedText;
+            setTimeout(() => {
+              if (btn.textContent === t.copiedText) btn.textContent = prevLabel;
+            }, 1800);
           }
         });
-        calculate();
+
+        setLanguage(currentLang);
 
         if (
           "serviceWorker" in navigator &&
