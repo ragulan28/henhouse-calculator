@@ -24,7 +24,7 @@ Users can enter live bird purchase prices, operating expenses, live chicken weig
 
 ## ✨ Features
 
-- **⚡ Instant Real-Time Calculations**: Calculates cost per bird, break-even prices, selling prices, and profit margins on every keystroke.
+- **⚡ Instant Real-Time Calculations**: Calculates break-even prices, selling prices, and profit margins on every keystroke.
 - **⚖️ Live vs. Dressed Comparison**: Side-by-side comparison of profit per kilogram and selling price difference.
 - **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS.
 - **📱 PWA & 100% Offline Support**: Installable directly to mobile home screens (iOS & Android) with local caching via Service Worker.

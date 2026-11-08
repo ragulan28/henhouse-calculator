@@ -679,16 +679,6 @@
           <h2 id="results-heading">Calculated results</h2>
           <div class="result-group">
             <div class="result-title">
-              <h3>Total cost per bird</h3>
-              <span class="pill">COST</span>
-            </div>
-            <div class="metric highlight">
-              <span>Total cost</span
-              ><strong id="totalCost">Rs. 1,650.00</strong>
-            </div>
-          </div>
-          <div class="result-group">
-            <div class="result-title">
               <h3>Live chicken</h3>
               <span class="pill">LIVE</span>
             </div>
@@ -875,7 +865,6 @@
             difference,
           };
           current = result;
-          $("totalCost").textContent = money(cost);
           $("liveBE").textContent = money(liveBE);
           $("liveSP").textContent = money(liveSP);
           $("liveProfit").textContent = money(liveProfit);
@@ -903,8 +892,6 @@
             `Other expenses: ${money(r.expenses)}/bird`,
             `Live chicken weight: ${r.weight} kg`,
             `Dressing yield: ${r.yield}%`,
-            "",
-            `Total cost per bird: ${money(r.cost)}`,
             "",
             "LIVE CHICKEN",
             `Break-even price/kg: ${money(r.liveBE)}`,
