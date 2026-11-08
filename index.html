@@ -266,9 +266,25 @@
       }
       .highlight {
         background: var(--soft);
-        margin: 9px -9px 0;
-        padding: 10px 9px;
+        margin: 6px -9px;
+        padding: 9px 9px;
         border-radius: 9px;
+      }
+      .highlight-sp {
+        background: #fbf3e5;
+        border: 1px solid #ead6bb;
+        margin: 6px -9px;
+        padding: 10px 9px;
+        border-radius: 10px;
+      }
+      .highlight-sp span:first-child {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .highlight-sp strong {
+        font-size: 16px;
+        font-weight: 800;
+        color: #854d0e;
       }
       .compare {
         display: grid;
@@ -349,94 +365,6 @@
         box-shadow: 0 5px 12px rgba(42, 29, 23, 0.07);
       }
       .social-btn:focus-visible {
-        outline: 3px solid var(--gold);
-        outline-offset: 2px;
-      }
-      .contact-card {
-        margin-top: 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 18px;
-        flex-wrap: wrap;
-        background: linear-gradient(to right, #fff, #faf6ee);
-      }
-      .contact-info h2 {
-        margin: 0 0 4px;
-        font-size: 16px;
-      }
-      .contact-info p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.4;
-      }
-      .contact-links {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      .contact-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 18px;
-        border-radius: 12px;
-        text-decoration: none;
-        border: 1px solid var(--line);
-        transition:
-          transform 0.15s ease,
-          box-shadow 0.15s ease,
-          border-color 0.15s ease;
-      }
-      .contact-btn svg {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-      }
-      .contact-btn-text {
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-      }
-      .contact-btn-sub {
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 700;
-        opacity: 0.85;
-      }
-      .contact-btn-main {
-        font-size: 15px;
-        font-weight: 750;
-      }
-      .contact-btn.whatsapp {
-        background: #edf9f0;
-        color: #14592e;
-        border-color: #c6ebd0;
-      }
-      .contact-btn.whatsapp svg {
-        fill: #25d366;
-      }
-      .contact-btn.facebook {
-        background: #eef4fc;
-        color: #124685;
-        border-color: #c9dbf2;
-      }
-      .contact-btn.facebook svg {
-        fill: #1877f2;
-      }
-      .contact-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(20, 50, 30, 0.08);
-      }
-      .contact-btn.whatsapp:hover {
-        border-color: #25d366;
-      }
-      .contact-btn.facebook:hover {
-        border-color: #1877f2;
-      }
-      .contact-btn:focus-visible {
         outline: 3px solid var(--gold);
         outline-offset: 2px;
       }
@@ -686,9 +614,9 @@
               <span>Break-even price/kg</span
               ><strong id="liveBE">Rs. 825.00</strong>
             </div>
-            <div class="metric">
-              <span>Selling price/kg</span
-              ><strong id="liveSP">Rs. 970.59</strong>
+            <div class="metric highlight-sp">
+              <span>Selling price/kg</span>
+              <strong id="liveSP">Rs. 970.59</strong>
             </div>
             <div class="metric">
               <span>Profit/kg</span><strong id="liveProfit">Rs. 145.59</strong>
@@ -707,9 +635,9 @@
               <span>Break-even price/kg</span
               ><strong id="dressedBE">Rs. 1,161.97</strong>
             </div>
-            <div class="metric">
-              <span>Selling price/kg</span
-              ><strong id="dressedSP">Rs. 1,366.32</strong>
+            <div class="metric highlight-sp">
+              <span>Selling price/kg</span>
+              <strong id="dressedSP">Rs. 1,366.32</strong>
             </div>
             <div class="metric">
               <span>Profit/kg</span
