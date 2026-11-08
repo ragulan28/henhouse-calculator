@@ -57,7 +57,7 @@ None.
 ## Configuration
 
 - Updated `manifest.webmanifest` icon declarations.
-- Incremented `CACHE_NAME` in `sw.js` to `henhouse-calculator-v3`.
+- Incremented `CACHE_NAME` in `sw.js` to `henhouse-calculator-v4`.
 
 ## Feature Flags & Permissions
 
