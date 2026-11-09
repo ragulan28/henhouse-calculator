@@ -1,15 +1,19 @@
-const CACHE_NAME = "henhouse-calculator-v7";
+const CACHE_NAME = "henhouse-calculator-v8";
 const FILES = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icon.svg",
   "./favicon.ico",
-  "./apple-touch-icon.png",
-  "./icon-192.png",
-  "./icon-512.png",
-  "./logo.png",
-  "./og-image.png"
+  "./css/style.css",
+  "./js/i18n.js",
+  "./js/app.js",
+  "./assets/icons/icon.svg",
+  "./assets/icons/favicon.png",
+  "./assets/icons/apple-touch-icon.png",
+  "./assets/icons/icon-192.png",
+  "./assets/icons/icon-512.png",
+  "./assets/images/logo.png",
+  "./assets/images/og-image.png"
 ];
 
 self.addEventListener("install", event => {

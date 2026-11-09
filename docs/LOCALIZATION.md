@@ -14,7 +14,7 @@ The vocabulary and phrasing reflect everyday commercial terminology used by Sri 
 
 ## Architecture
 
-- **Zero External Dependencies**: Built directly into [index.html](file:///home/ragulan/work/henhouse/henhouse-calculator/index.html) with no external i18n libraries, ensuring instant loading and 100% offline PWA compatibility.
+- **Modular Architecture**: String tables housed in [js/i18n.js](file:///home/ragulan/work/henhouse/henhouse-calculator/js/i18n.js) and consumed by [js/app.js](file:///home/ragulan/work/henhouse/henhouse-calculator/js/app.js) with zero external libraries, ensuring instant loading and 100% offline PWA compatibility.
 - **Client-Side Dictionary (`I18N`)**: Complete string tables for `en`, `si`, and `ta` covering all labels, units, input hints, result metrics, buttons, error messages, and clipboard export templates.
 - **Declarative Markup Binding (`data-i18n`)**: DOM elements declare translatable keys via `data-i18n="<key>"`, allowing instantaneous language swaps without page reloading.
 - **Reactive UI & Dynamic Currency/Units**:

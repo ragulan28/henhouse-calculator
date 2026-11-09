@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="HenHouse Logo" width="120" height="120">
+  <img src="assets/images/logo.png" alt="HenHouse Logo" width="120" height="120">
 </p>
 
 <h1 align="center">HenHouse Chicken Pricing Calculator</h1>
@@ -70,25 +70,27 @@ This repository is pre-configured to deploy directly to GitHub Pages from the `m
 
 ```
 henhouse-calculator/
-├── index.html              # Core application, responsive UI & calculator logic
-├── manifest.webmanifest    # PWA configuration and app icons
-├── sw.js                   # Service Worker for offline caching
-├── robots.txt              # Search engine crawler instructions
-├── sitemap.xml             # XML sitemap with multilingual hreflang
-├── og-image.png            # 1200×630 Open Graph & Twitter social card
-├── henhouse.png            # Master high-resolution brand emblem (3840×3840)
-├── logo.png                # Optimized header logo (256×256)
-├── favicon.ico             # Desktop browser favicon (16/32/48 multi-size)
-├── favicon.png             # 32×32 PNG favicon
-├── icon.svg                # Scalable SVG wrapper icon
-├── apple-touch-icon.png    # 180×180 iOS home screen icon
-├── icon-192.png            # 192×192 Android PWA icon
-├── icon-512.png            # 512×512 Android PWA splash/maskable icon
+├── .gitignore               # Standard ignore patterns (OS, IDE, logs)
+├── index.html               # Clean semantic HTML
+├── manifest.webmanifest     # PWA configuration and app icons
+├── sw.js                    # Service Worker with offline caching
+├── robots.txt               # Search engine crawler instructions
+├── sitemap.xml              # XML sitemap with multilingual hreflang
+├── google58fe648dcdb2e472.html # Google Search Console verification
+├── favicon.ico              # Root desktop browser favicon
+├── css/
+│   └── style.css            # Styles, typography, layout & responsive rules
+├── js/
+│   ├── i18n.js              # Trilingual Sri Lankan language dictionaries
+│   └── app.js               # Reactive calculations, DOM & PWA logic
+├── assets/
+│   ├── icons/               # PWA & browser icons (icon-192, icon-512, svg, etc.)
+│   └── images/              # Logo, OG social card, and master emblem
 ├── docs/
-│   ├── BRANDING_AND_ICONS.md # Technical documentation for design & branding
-│   ├── LOCALIZATION.md       # Trilingual (EN, SI, TA) architecture & terminology
-│   └── SEO.md                # Search engine optimization & structured data
-└── README.md               # Project documentation
+│   ├── BRANDING_AND_ICONS.md# Technical documentation for design & branding
+│   ├── LOCALIZATION.md      # Trilingual (EN, SI, TA) architecture & terminology
+│   └── SEO.md               # Search engine optimization & structured data
+└── README.md                # Project documentation
 ```
 
 ---

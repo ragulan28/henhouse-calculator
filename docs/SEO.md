@@ -47,8 +47,8 @@ Maximize discoverability, search ranking, and social sharing click-through rates
 
 ## Configuration & Assets
 
-- `og-image.png`: 1200×630 RGB PNG (137 KB), pre-cached in `sw.js`.
+- `assets/images/og-image.png`: 1200×630 RGB PNG (137 KB), pre-cached in `sw.js`.
 - `robots.txt`: Root search crawler permissions.
 - `sitemap.xml`: XML sitemap with trilingual hreflang alternates.
-- `sw.js`: Service Worker cache incremented to `henhouse-calculator-v7`.
+- `sw.js`: Service Worker cache incremented to `henhouse-calculator-v8`.
 
