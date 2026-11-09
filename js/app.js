@@ -205,16 +205,17 @@
     const endpoint =
       "https://api.counterapi.dev/v2/ragulan-gopalapillais-team-6180/henhouse-calculator";
     const token = "ut_cBQAqz5H9jMleB9SiLOsVowt6CKflhsyxHwdUtOA";
-    const headers = { Authorization: "Bearer " + token };
 
     try {
       const hasCountedSession = sessionStorage.getItem("hh_session_tracked");
-      let res;
-      if (!hasCountedSession) {
-        res = await fetch(`${endpoint}/up`, { headers });
+      const url = hasCountedSession
+        ? `${endpoint}?token=${token}`
+        : `${endpoint}/up?token=${token}`;
+
+      // Standard simple GET without custom headers avoids CORS preflight OPTIONS check
+      const res = await fetch(url);
+      if (!hasCountedSession && res.ok) {
         sessionStorage.setItem("hh_session_tracked", "1");
-      } else {
-        res = await fetch(endpoint, { headers });
       }
 
       if (res && res.ok) {
@@ -227,7 +228,9 @@
         }
       }
     } catch {
-      // Offline fallback: keep cached value or default
+      // Ad-blocker or offline fallback: maintain cached count
+      const localFallback = Number(localStorage.getItem("hh_global_uses")) || 1;
+      countEl.textContent = localFallback.toLocaleString("en-LK");
     }
   }
 
