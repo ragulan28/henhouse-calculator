@@ -30,6 +30,7 @@ Users can enter live bird purchase prices, operating expenses, live chicken weig
 - **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS in the selected language.
 - **📱 PWA & 100% Offline Support**: Installable directly to mobile home screens (iOS & Android) with local caching via Service Worker.
 - **🔍 Comprehensive SEO & Social Sharing**: Complete Schema.org JSON-LD (`WebApplication`, `LocalBusiness`, `FAQPage`), Open Graph (`og-image.png`, 1200×630), Twitter Cards, `sitemap.xml`, and `robots.txt`.
+- **📊 Global Live Usage Tracker**: Real-time counter powered by CounterAPI v2 displaying total worldwide app uses with trilingual formatting and offline caching.
 - **🎨 Brand-Aligned Design**: Warm barnwood espresso and golden amber color theme crafted from the official HenHouse emblem.
 - **💬 Direct Business Integration**: Seamless WhatsApp (`0777 649 544`) and Facebook (`facebook.com/henhouse.lk`) connectivity.
 

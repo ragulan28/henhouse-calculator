@@ -192,6 +192,47 @@
   // Initial render
   setLanguage(currentLang);
 
+  // Global Usage Tracker (CounterAPI v2)
+  async function initUsageTracker() {
+    const countEl = $("appUsesCount");
+    if (!countEl) return;
+
+    const cached = localStorage.getItem("hh_global_uses");
+    if (cached) {
+      countEl.textContent = Number(cached).toLocaleString("en-LK");
+    }
+
+    const endpoint =
+      "https://api.counterapi.dev/v2/ragulan-gopalapillais-team-6180/henhouse-calculator";
+    const token = "ut_cBQAqz5H9jMleB9SiLOsVowt6CKflhsyxHwdUtOA";
+    const headers = { Authorization: "Bearer " + token };
+
+    try {
+      const hasCountedSession = sessionStorage.getItem("hh_session_tracked");
+      let res;
+      if (!hasCountedSession) {
+        res = await fetch(`${endpoint}/up`, { headers });
+        sessionStorage.setItem("hh_session_tracked", "1");
+      } else {
+        res = await fetch(endpoint, { headers });
+      }
+
+      if (res && res.ok) {
+        const json = await res.json();
+        const data = json.data;
+        if (data && typeof data.up_count === "number") {
+          const count = Math.max(1, data.up_count);
+          countEl.textContent = count.toLocaleString("en-LK");
+          localStorage.setItem("hh_global_uses", count);
+        }
+      }
+    } catch {
+      // Offline fallback: keep cached value or default
+    }
+  }
+
+  initUsageTracker();
+
   // Register service worker for offline PWA support
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
     window.addEventListener("load", () =>
