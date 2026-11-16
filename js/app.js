@@ -14,6 +14,33 @@
   };
   const $ = (id) => document.getElementById(id);
   const I18N = window.I18N || {};
+  const INPUTS_STORAGE_KEY = "henhouse_inputs";
+
+  function loadSavedInputs() {
+    try {
+      const raw = localStorage.getItem(INPUTS_STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved === "object") {
+        ids.forEach((id) => {
+          if (
+            saved[id] !== undefined &&
+            saved[id] !== null &&
+            String(saved[id]).trim() !== ""
+          ) {
+            $(id).value = saved[id];
+          }
+        });
+      }
+    } catch {}
+  }
+
+  function saveInputs() {
+    try {
+      const data = Object.fromEntries(ids.map((id) => [id, $(id).value]));
+      localStorage.setItem(INPUTS_STORAGE_KEY, JSON.stringify(data));
+    } catch {}
+  }
 
   let currentLang = "en";
   try {
@@ -127,10 +154,18 @@
     if ($("difference")) $("difference").textContent = money(difference);
   }
 
-  ids.forEach((id) => $(id).addEventListener("input", calculate));
+  ids.forEach((id) =>
+    $(id).addEventListener("input", () => {
+      saveInputs();
+      calculate();
+    }),
+  );
 
   $("reset").addEventListener("click", () => {
     ids.forEach((id) => ($(id).value = defaults[id]));
+    try {
+      localStorage.removeItem(INPUTS_STORAGE_KEY);
+    } catch {}
     calculate();
   });
 
@@ -188,6 +223,9 @@
       }, 1800);
     }
   });
+
+  // Load persisted inputs from localStorage if present
+  loadSavedInputs();
 
   // Initial render
   setLanguage(currentLang);
