@@ -28,6 +28,7 @@ Users can enter live bird purchase prices, operating expenses, live chicken weig
 - **⚡ Instant Real-Time Calculations**: Calculates break-even prices, selling prices, and profit margins on every keystroke.
 - **⚖️ Live vs. Dressed Comparison**: Side-by-side comparison of profit per kilogram and selling price difference.
 - **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS in the selected language.
+- **💾 LocalStorage Input Persistence**: Automatically remembers custom pricing inputs across browser reloads, with a single-click reset to defaults.
 - **📱 PWA & 100% Offline Support**: Installable directly to mobile home screens (iOS & Android) with local caching via Service Worker.
 - **🔍 Comprehensive SEO & Social Sharing**: Complete Schema.org JSON-LD (`WebApplication`, `LocalBusiness`, `FAQPage`), Open Graph (`og-image.png`, 1200×630), Twitter Cards, `sitemap.xml`, and `robots.txt`.
 - **📊 Global Live Usage Tracker**: Real-time counter powered by CounterAPI v2 displaying total worldwide app uses with trilingual formatting and offline caching.
@@ -90,6 +91,7 @@ henhouse-calculator/
 ├── docs/
 │   ├── BRANDING_AND_ICONS.md# Technical documentation for design & branding
 │   ├── LOCALIZATION.md      # Trilingual (EN, SI, TA) architecture & terminology
+│   ├── PERSISTENCE.md       # Client-side input storage & lifecycle documentation
 │   └── SEO.md               # Search engine optimization & structured data
 └── README.md                # Project documentation
 ```
