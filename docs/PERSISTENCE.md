@@ -1,7 +1,7 @@
 # LocalStorage Input Persistence
 
 ## 1. Purpose
-To enhance the user experience by automatically saving all calculator input values in the browser's `localStorage`. When poultry farmers, butchers, and distributors refresh the page or reopen the app, their customized input values (live purchase price, profit margin, operating expenses, live weight, and dressing yield) remain intact instead of reverting to default presets.
+To enhance the user experience by automatically saving all calculator input values in the browser's `localStorage`. When poultry farmers, butchers, and distributors refresh the page or reopen the app, their customized input values (live purchase price, profit margin, operating expenses, live weight, and meat yield) remain intact instead of reverting to default presets.
 
 ## 2. Architecture
 The persistence logic is implemented directly in [js/app.js](file:///home/ragulan/work/henhouse/henhouse-calculator/js/app.js) and operates completely on the client side without any external server or network dependency:

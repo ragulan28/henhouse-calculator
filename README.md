@@ -5,7 +5,7 @@
 <h1 align="center">HenHouse Chicken Pricing Calculator</h1>
 
 <p align="center">
-  A fast, accurate, mobile-friendly live vs. dressed chicken pricing calculator built for poultry farmers, butchers, retailers, and distributors in Sri Lanka.
+  A fast, accurate, mobile-friendly live chicken vs. meat pricing calculator built for poultry farmers, butchers, retailers, and distributors in Sri Lanka.
 </p>
 
 <p align="center">
@@ -18,15 +18,15 @@
 
 **HenHouse Chicken Pricing Calculator** runs 100% in the browser. It requires no login, no server, and no database, and works offline as an installable Progressive Web App (PWA).
 
-Users can enter live bird purchase prices, operating expenses, live chicken weights, dressing yield percentages, and desired profit margins to instantly compare break-even costs, selling prices, and profits between live and dressed chicken.
+Users can enter live bird purchase prices, operating expenses, live chicken weights, meat yield percentages, and desired profit margins to instantly compare min selling prices, selling prices, and profits between live chicken and meat.
 
 ---
 
 ## ✨ Features
 
 - **🇱🇰 Trilingual Sri Lankan Support**: Full native support for English, Sinhala (සිංහල), and Tamil (தமிழ்) with authentic poultry market terminology and Sri Lankan currency formatting (`Rs.` / `රු.` / `ரூ.`).
-- **⚡ Instant Real-Time Calculations**: Calculates break-even prices, selling prices, and profit margins on every keystroke.
-- **⚖️ Live vs. Dressed Comparison**: Side-by-side comparison of profit per kilogram and selling price difference.
+- **⚡ Instant Real-Time Calculations**: Calculates min selling prices, selling prices, and profit margins on every keystroke.
+- **⚖️ Live Chicken vs. Meat Comparison**: Side-by-side comparison of profit per kilogram and selling price difference.
 - **📋 One-Click Copy**: Copies formatted calculation summaries directly to clipboard, formatted for instant sharing via WhatsApp or SMS in the selected language.
 - **💾 LocalStorage Input Persistence**: Automatically remembers custom pricing inputs across browser reloads, with a single-click reset to defaults.
 - **📱 PWA & 100% Offline Support**: Installable directly to mobile home screens (iOS & Android) with local caching via Service Worker.
@@ -44,12 +44,12 @@ The desired profit margin is calculated as a **percentage of the selling price**
 | Metric | Formula |
 | :--- | :--- |
 | **Total Cost / Bird** | $\text{Cost} = (\text{Purchase Price/kg} \times \text{Live Weight}) + \text{Expenses/bird}$ |
-| **Expected Dressed Weight** | $\text{Dressed Weight} = \text{Live Weight} \times \left(\frac{\text{Dressing Yield \%}}{100}\right)$ |
-| **Break-Even Price (Live)** | $\text{Live BE} = \frac{\text{Total Cost}}{\text{Live Weight}}$ |
-| **Break-Even Price (Dressed)** | $\text{Dressed BE} = \frac{\text{Total Cost}}{\text{Dressed Weight}}$ |
-| **Selling Price / kg** | $\text{Selling Price} = \frac{\text{Break-Even Price}}{1 - \left(\frac{\text{Margin \%}}{100}\right)}$ |
-| **Profit / kg** | $\text{Profit} = \text{Selling Price} - \text{Break-Even Price}$ |
-| **Price Difference / kg** | $\text{Difference} = \text{Dressed Selling Price} - \text{Live Selling Price}$ |
+| **Expected Meat Weight** | $\text{Meat Weight} = \text{Live Weight} \times \left(\frac{\text{Meat Yield \%}}{100}\right)$ |
+| **Min Selling Price (Live)** | $\text{Live Min SP} = \frac{\text{Total Cost}}{\text{Live Weight}}$ |
+| **Min Selling Price (Meat)** | $\text{Meat Min SP} = \frac{\text{Total Cost}}{\text{Meat Weight}}$ |
+| **Selling Price / kg** | $\text{Selling Price} = \frac{\text{Min Selling Price}}{1 - \left(\frac{\text{Margin \%}}{100}\right)}$ |
+| **Profit / kg** | $\text{Profit} = \text{Selling Price} - \text{Min Selling Price}$ |
+| **Price Difference / kg** | $\text{Difference} = \text{Meat Selling Price} - \text{Live Selling Price}$ |
 
 ---
 

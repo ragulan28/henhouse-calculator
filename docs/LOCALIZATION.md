@@ -56,16 +56,17 @@ The vocabulary and phrasing reflect everyday commercial terminology used by Sri 
 | **App Title**               | HenHouse \| Chicken Pricing Calculator | HenHouse \| කුකුල් මස් මිල ගණනය | HenHouse \| கோழி விலை கணிப்பான்  |
 | **Tagline**                 | Chicken Pricing Calculator             | කුකුල් මස් මිල ගණනය කිරීම       | கோழி இறைச்சி விலை கணிப்பான்      |
 | **Live Chicken**            | Live chicken                           | සජීවී කුකුල් මස්                | உயிருள்ள கோழி                    |
-| **Dressed Chicken**         | Dressed chicken                        | පිරිසිදු කළ කුකුල් මස්          | சுத்தம் செய்த கோழி               |
+| **Meat**                    | Meat                                   | මස්                             | இறைச்சி                          |
 | **Live Purchase Price**     | Live chicken purchase price            | සජීවී කුකුළන් මිලදී ගැනීමේ මිල  | உயிருள்ள கோழி கொள்முதல் விலை     |
 | **Profit Margin**           | Desired profit margin                  | බලාපොරොත්තු වන ලාභ ප්‍රතිශතය    | எதிர்பார்க்கும் இலாப விகிதம்     |
 | **Other Expenses**          | Other expenses                         | වෙනත් වියදම්                    | ஏனைய செலவுகள்                    |
+| **Other Expenses Hint**     | Per-bird extra costs, e.g., weight loss, feeding, cleaning, cutting, and packaging. | කුකුලෙකුට අමතර වියදම් — උදා: බර අඩුවීම, ආහාර, පිරිසිදු කිරීම, කැපීම සහ ඇසුරුම් කිරීම. | கோழி ஒன்றுக்கான மேலதிக செலவுகள் — உ.தா: எடை குறைவு, தீவனம், சுத்தம் செய்தல், வெட்டுதல் மற்றும் பொதியிடல். |
 | **Live Chicken Weight**     | Live chicken weight                    | සජීවී කුකුළාගේ බර               | உயிருள்ள கோழியின் எடை            |
-| **Dressing Yield**          | Dressing yield                         | මස් අස්වැන්න (Dressing Yield)   | இறைச்சி விகிதம் (Dressing Yield) |
-| **Break-Even Price**        | Break-even price/kg                    | පාඩු නොවන මිල / කි.ග්‍රෑ.       | சமநிலை விலை / கிலோ               |
+| **Meat Yield**              | Meat yield                             | මස් අස්වැන්න (Meat Yield)       | இறைச்சி விகிதம் (Meat Yield)     |
+| **Min Selling Price**       | Min selling price/kg                   | අවම විකුණුම් මිල / කි.ග්‍රෑ.    | குறைந்தபட்ச விற்பனை விலை / கிலோ  |
 | **Selling Price**           | Selling price/kg                       | විකුණුම් මිල / කි.ග්‍රෑ.        | விற்பனை விலை / கிலோ              |
 | **Profit**                  | Profit/kg                              | ලාභය / කි.ග්‍රෑ.                | இலாபம் / கிலோ                    |
-| **Expected Dressed Weight** | Expected dressed weight                | ලැබෙන පිරිසිදු මස් බර           | கிடைக்கும் இறைச்சி எடை           |
+| **Expected Meat Weight**    | Expected meat weight                   | ලැබෙන මස් බර                    | கிடைக்கும் இறைச்சி எடை           |
 | **Currency Prefix**         | `Rs. `                                 | `රු. `                          | `ரூ. `                           |
 | **Weight Suffix**           | ` kg`                                  | ` කි.ග්‍රෑ.`                    | ` கிலோ`                          |
 | **Copy Button**             | Copy calculation                       | ගණනය පිටපත් කරන්න               | கணக்கீட்டை நகலெடு                |

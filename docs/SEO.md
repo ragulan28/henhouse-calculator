@@ -9,8 +9,8 @@ Maximize discoverability, search ranking, and social sharing click-through rates
 ## Architecture
 
 1. **Meta & Semantic Directives**:
-   - `description`: Actionable, keyword-dense summary emphasizing Sri Lankan live vs. dressed chicken pricing.
-   - `keywords`: Targeted keywords in English, Sinhala, and Tamil (`chicken price sri lanka`, `henhouse`, `live chicken price`, `dressed chicken price`, `කුකුල් මස් මිල`, `කිකිළි මිල`, `கோழி இறைச்சி விலை`, `broiler farming`).
+   - `description`: Actionable, keyword-dense summary emphasizing Sri Lankan live chicken vs. meat pricing.
+   - `keywords`: Targeted keywords in English, Sinhala, and Tamil (`chicken price sri lanka`, `henhouse`, `live chicken price`, `chicken meat price`, `කුකුල් මස් මිල`, `කිකිළි මිල`, `கோழி இறைச்சி விலை`, `broiler farming`).
    - `canonical`: Hardcoded to `https://ragulan28.github.io/henhouse-calculator/` to prevent duplicate content indexing.
    - `robots`: Directed indexing (`index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1`).
    - `hreflang`: Language alternate references for `x-default`, `en`, `si`, and `ta`.

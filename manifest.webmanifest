@@ -1,7 +1,7 @@
 {
   "name": "HenHouse Chicken Pricing Calculator",
   "short_name": "HenHouse",
-  "description": "Calculate and compare live and dressed chicken prices.",
+  "description": "Calculate and compare live chicken and meat prices.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
