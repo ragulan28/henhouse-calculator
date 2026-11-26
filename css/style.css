@@ -812,6 +812,9 @@ footer {
   .sp-group.is-pinned .result-title {
     margin-bottom: 6px;
   }
+  .sp-group.is-pinned .pill {
+    display: none;
+  }
   .sp-group.is-pinned .compare {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
@@ -820,13 +823,13 @@ footer {
   .sp-group.is-pinned .compare-box {
     padding: 8px 10px;
     column-gap: 6px;
-    row-gap: 2px;
+    row-gap: 3px;
   }
   .sp-group.is-pinned .compare-box small {
     margin-bottom: 0;
   }
   .sp-group.is-pinned .compare-box strong {
-    font-size: 15px;
+    font-size: 16px;
   }
   .sp-group.is-pinned .compare-profit {
     padding: 3px 6px;
@@ -847,6 +850,35 @@ footer {
   }
   .sp-group.is-pinned .compare {
     grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .sp-group.is-pinned .compare-box {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding: 7px 8px;
+    row-gap: 4px;
+  }
+  .sp-group.is-pinned .compare-box small {
+    font-size: 10.5px;
+    line-height: 1.25;
+  }
+  .sp-group.is-pinned .compare-box strong {
+    font-size: 16px;
+  }
+  .sp-group.is-pinned .compare-profit {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 4px;
+    padding: 3px 6px;
+  }
+  .sp-group.is-pinned .compare-profit span:first-child {
+    font-size: 9.5px;
+  }
+  .sp-group.is-pinned .compare-profit span:last-child {
+    font-size: 10.5px;
   }
   .lang-btn {
     padding: 5px 8px;
