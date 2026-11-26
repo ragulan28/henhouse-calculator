@@ -369,10 +369,9 @@ button:focus-visible {
 }
 
 .compare-box {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   column-gap: 8px;
   row-gap: 4px;
   background: #fbf3e5;
@@ -385,7 +384,7 @@ button:focus-visible {
 }
 
 .compare-box small {
-  flex: 1 0 100%;
+  grid-column: 1 / -1;
   display: block;
   color: var(--muted);
   font-size: 11px;
@@ -406,40 +405,32 @@ button:focus-visible {
 
 .compare-profit {
   display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  max-width: 100%;
-  margin-top: 0;
-  padding: 3px 8px;
-  border-radius: 999px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  padding: 4px 8px;
+  border-radius: 8px;
   background: #edf9f0;
   border: 1px solid #c6ebd0;
   color: #14592e;
-  font-size: 11px;
-  line-height: 1.25;
   font-variant-numeric: tabular-nums;
-}
-
-.compare-profit::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #16a34a;
   flex-shrink: 0;
 }
 
 .compare-profit span:first-child {
-  font-weight: 600;
-  opacity: 0.82;
+  font-size: 9.5px;
+  font-weight: 650;
+  line-height: 1.1;
+  opacity: 0.8;
   white-space: nowrap;
 }
 
 .compare-profit span:last-child {
-  font-weight: 750;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .note {
@@ -762,19 +753,24 @@ footer {
   }
   .sp-group.is-pinned .compare-box {
     padding: 8px 10px;
-    row-gap: 3px;
+    column-gap: 6px;
+    row-gap: 2px;
   }
   .sp-group.is-pinned .compare-box small {
     margin-bottom: 0;
   }
   .sp-group.is-pinned .compare-box strong {
-    font-size: 16px;
+    font-size: 15px;
   }
   .sp-group.is-pinned .compare-profit {
-    margin-top: 0;
-    padding: 2px 7px;
-    gap: 4px;
-    font-size: 10.5px;
+    padding: 3px 6px;
+    border-radius: 7px;
+  }
+  .sp-group.is-pinned .compare-profit span:first-child {
+    font-size: 9px;
+  }
+  .sp-group.is-pinned .compare-profit span:last-child {
+    font-size: 11px;
   }
 }
 
