@@ -8,6 +8,7 @@
   const defaults = {
     purchase: 800,
     margin: 15,
+    fixedProfit: 150,
     expenses: 50,
     weight: 2,
     yield: 71,
@@ -15,6 +16,49 @@
   const $ = (id) => document.getElementById(id);
   const I18N = window.I18N || {};
   const INPUTS_STORAGE_KEY = "henhouse_inputs";
+  let profitMode = "percent";
+  const lastProfitValues = {
+    percent: String(defaults.margin),
+    fixed: String(defaults.fixedProfit),
+  };
+
+  function syncProfitModeUI() {
+    const t = I18N[currentLang] || I18N.en || {};
+    const marginInput = $("margin");
+    const marginLabel = $("marginLabel");
+    const marginUnit = $("marginUnit");
+    const marginHint = $("margin-hint");
+    const isFixed = profitMode === "fixed";
+
+    if (marginInput) {
+      if (isFixed) {
+        marginInput.removeAttribute("max");
+        marginInput.step = "1";
+      } else {
+        marginInput.max = "99.99";
+        marginInput.step = "0.1";
+      }
+    }
+    if (marginLabel) {
+      const key = isFixed ? "fixedProfitLabel" : "marginLabel";
+      marginLabel.setAttribute("data-i18n", key);
+      if (t[key]) marginLabel.textContent = t[key];
+    }
+    if (marginUnit) {
+      marginUnit.textContent = isFixed ? t.profitModeFixed || "Rs./kg" : "%";
+    }
+    if (marginHint) {
+      const key = isFixed ? "fixedProfitHint" : "marginHint";
+      marginHint.setAttribute("data-i18n", key);
+      if (t[key]) marginHint.textContent = t[key];
+    }
+
+    document.querySelectorAll(".mode-btn").forEach((btn) => {
+      const isActive = btn.getAttribute("data-profit-mode") === profitMode;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  }
 
   function loadSavedInputs() {
     try {
@@ -22,6 +66,9 @@
       if (!raw) return;
       const saved = JSON.parse(raw);
       if (saved && typeof saved === "object") {
+        if (saved.profitMode === "fixed" || saved.profitMode === "percent") {
+          profitMode = saved.profitMode;
+        }
         ids.forEach((id) => {
           if (
             saved[id] !== undefined &&
@@ -31,6 +78,7 @@
             $(id).value = saved[id];
           }
         });
+        lastProfitValues[profitMode] = $("margin").value;
       }
     } catch {}
   }
@@ -38,6 +86,7 @@
   function saveInputs() {
     try {
       const data = Object.fromEntries(ids.map((id) => [id, $(id).value]));
+      data.profitMode = profitMode;
       localStorage.setItem(INPUTS_STORAGE_KEY, JSON.stringify(data));
     } catch {}
   }
@@ -92,26 +141,30 @@
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
 
+    syncProfitModeUI();
     calculate();
   }
 
   function calculate() {
     const v = Object.fromEntries(ids.map((id) => [id, Number($(id).value)]));
     const error = $("error");
+    const isFixed = profitMode === "fixed";
     const invalid =
       ids.some((id) => $(id).value.trim() === "" || !Number.isFinite(v[id])) ||
       v.purchase < 0 ||
       v.margin < 0 ||
-      v.margin >= 100 ||
+      (!isFixed && v.margin >= 100) ||
       v.expenses < 0 ||
       v.weight <= 0 ||
       v.yield <= 0 ||
       v.yield > 100;
 
     if (invalid) {
-      error.textContent =
-        I18N[currentLang]?.errorMsg ||
-        "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.";
+      error.textContent = isFixed
+        ? I18N[currentLang]?.errorMsgFixed ||
+          "Please enter valid values. Profit must be zero or above, weight and yield must be above zero, and yield cannot exceed 100%."
+        : I18N[currentLang]?.errorMsg ||
+          "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.";
       error.style.display = "block";
       $("copy").disabled = true;
       $("copy").style.opacity = ".55";
@@ -128,8 +181,10 @@
     const liveBE = cost / v.weight;
     const dressedBE = cost / dressedWeight;
     const factor = 1 - v.margin / 100;
-    const liveSP = liveBE / factor;
-    const dressedSP = dressedBE / factor;
+    const liveSP = isFixed ? liveBE + v.margin : liveBE / factor;
+    const dressedSP = isFixed
+      ? liveSP / (v.yield / 100)
+      : dressedBE / factor;
     const liveProfit = liveSP - liveBE;
     const dressedProfit = dressedSP - dressedBE;
     const compareLiveSP = roundUpTo10(liveSP);
@@ -140,6 +195,7 @@
 
     const result = {
       ...v,
+      profitMode,
       cost,
       dressedWeight,
       liveBE,
@@ -171,16 +227,38 @@
 
   ids.forEach((id) =>
     $(id).addEventListener("input", () => {
+      if (id === "margin") {
+        lastProfitValues[profitMode] = $("margin").value;
+      }
       saveInputs();
       calculate();
     }),
   );
 
+  document.querySelectorAll(".mode-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const nextMode = btn.getAttribute("data-profit-mode");
+      if (!nextMode || nextMode === profitMode) return;
+      lastProfitValues[profitMode] = $("margin").value;
+      profitMode = nextMode;
+      $("margin").value =
+        lastProfitValues[profitMode] ??
+        String(profitMode === "fixed" ? defaults.fixedProfit : defaults.margin);
+      syncProfitModeUI();
+      saveInputs();
+      calculate();
+    });
+  });
+
   $("reset").addEventListener("click", () => {
+    profitMode = "percent";
+    lastProfitValues.percent = String(defaults.margin);
+    lastProfitValues.fixed = String(defaults.fixedProfit);
     ids.forEach((id) => ($(id).value = defaults[id]));
     try {
       localStorage.removeItem(INPUTS_STORAGE_KEY);
     } catch {}
+    syncProfitModeUI();
     calculate();
   });
 
@@ -200,7 +278,9 @@
     const text = [
       t.clipTitle,
       `${t.clipLivePurchase}: ${money(r.purchase)}${t.clipPerKg}`,
-      `${t.clipMargin}: ${r.margin}%`,
+      r.profitMode === "fixed"
+        ? `${t.clipFixedProfit}: ${money(r.margin)}${t.clipPerKg}`
+        : `${t.clipMargin}: ${r.margin}%`,
       `${t.clipExpenses}: ${money(r.expenses)}${t.clipPerBird}`,
       `${t.clipLiveWeight}: ${r.weight}${t.weightSuffix}`,
       `${t.clipYield}: ${r.yield}%`,

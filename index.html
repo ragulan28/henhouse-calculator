@@ -318,9 +318,35 @@
             </div>
           </div>
           <div class="field">
-            <label for="margin" data-i18n="marginLabel"
-              >Desired profit margin</label
-            >
+            <div class="field-header">
+              <label for="margin" id="marginLabel" data-i18n="marginLabel"
+                >Desired profit margin</label
+              >
+              <div
+                class="mode-switch"
+                role="group"
+                aria-label="Profit calculation mode"
+              >
+                <button
+                  type="button"
+                  class="mode-btn active"
+                  data-profit-mode="percent"
+                  aria-pressed="true"
+                  data-i18n="profitModePercent"
+                >
+                  %
+                </button>
+                <button
+                  type="button"
+                  class="mode-btn"
+                  data-profit-mode="fixed"
+                  aria-pressed="false"
+                  data-i18n="profitModeFixed"
+                >
+                  Rs./kg
+                </button>
+              </div>
+            </div>
             <div class="input-wrap">
               <input
                 id="margin"
@@ -329,9 +355,10 @@
                 max="99.99"
                 step="0.1"
                 value="15"
-              /><span class="unit">%</span>
+                aria-describedby="margin-hint"
+              /><span class="unit" id="marginUnit">%</span>
             </div>
-            <div class="hint" data-i18n="marginHint">
+            <div class="hint" id="margin-hint" data-i18n="marginHint">
               Margin is calculated as a percentage of the selling price.
             </div>
           </div>

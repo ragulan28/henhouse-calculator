@@ -13,7 +13,12 @@ window.I18N = {
     purchaseLabel: "Live chicken purchase price",
     purchaseUnit: "Rs./kg",
     marginLabel: "Desired profit margin",
+    fixedProfitLabel: "Live chicken fixed profit",
+    profitModePercent: "%",
+    profitModeFixed: "Rs./kg",
     marginHint: "Margin is calculated as a percentage of the selling price.",
+    fixedProfitHint:
+      "Fixed profit added per kg to live chicken; meat price is calculated from the live selling price and meat yield.",
     expensesLabel: "Other expenses",
     expensesUnit: "Rs./bird",
     expensesHint:
@@ -26,6 +31,8 @@ window.I18N = {
     resetBtn: "Reset",
     errorMsg:
       "Please enter valid values. Margin must be below 100%, weight and yield must be above zero, and yield cannot exceed 100%.",
+    errorMsgFixed:
+      "Please enter valid values. Profit must be zero or above, weight and yield must be above zero, and yield cannot exceed 100%.",
     resultsHeading: "Calculated results",
     liveTitle: "Live chicken",
     livePill: "LIVE",
@@ -50,20 +57,19 @@ window.I18N = {
     faq1Q: "How is the live chicken selling price calculated?",
     faq1A:
       "The min selling price per kilogram is calculated by dividing total cost (purchase cost + expenses per bird) by the live weight. The final selling price is then calculated using your desired profit margin percentage: Selling Price = Min Selling Price / (1 - Margin/100).",
-    faq2Q:
-      "What is the standard meat yield for broiler chicken in Sri Lanka?",
+    faq2Q: "What is the standard meat yield for broiler chicken in Sri Lanka?",
     faq2A:
       "In Sri Lanka, standard commercial broiler meat yield typically ranges from 68% to 74% (average 71%), depending on bird age, feed quality, and meat preparation (skin-on, whole cleaned bird).",
     faq3Q: "Why is margin calculated on selling price instead of cost markup?",
     faq3A:
       "Commercial poultry traders and retail butcher shops use gross profit margin (Profit / Selling Price), ensuring your actual return percentage matches total sales revenue rather than just marking up initial purchase cost.",
-    faq4Q: "How do I order fresh chicken or inquire wholesale prices from HenHouse?",
+    faq4Q:
+      "How do I order fresh chicken or inquire wholesale prices from HenHouse?",
     faq4A:
       "You can reach HenHouse directly on WhatsApp at 0777 649 544 (+94 77 764 9544) or visit facebook.com/henhouse.lk for daily wholesale and retail pricing updates across Sri Lanka.",
     footerText: "HenHouse · Chicken Pricing Calculator",
     installBtn: "Install",
-    iosInstallHint:
-      "Tap Share, then 'Add to Home Screen' to install HenHouse.",
+    iosInstallHint: "Tap Share, then 'Add to Home Screen' to install HenHouse.",
     androidInstallHint:
       "Open your browser menu (⋮) and tap 'Install app' or 'Add to Home screen'.",
     usageLabel: "App used:",
@@ -73,6 +79,8 @@ window.I18N = {
     clipTitle: "HenHouse Chicken Pricing Calculator",
     clipLivePurchase: "Live purchase price",
     clipMargin: "Desired profit margin",
+    clipFixedProfit: "Live fixed profit",
+    clipFixedProfit: "Desired fixed profit",
     clipExpenses: "Other expenses",
     clipLiveWeight: "Live chicken weight",
     clipYield: "Meat yield",
@@ -97,7 +105,12 @@ window.I18N = {
     purchaseLabel: "සජීවී කුකුළන් මිලදී ගැනීමේ මිල",
     purchaseUnit: "රු./කි.ග්‍රෑ.",
     marginLabel: "බලාපොරොත්තු වන ලාභ ප්‍රතිශතය",
+    fixedProfitLabel: "සජීවී කුකුළන් ස්ථාවර ලාභය",
+    profitModePercent: "%",
+    profitModeFixed: "රු./කි.ග්‍රෑ.",
     marginHint: "ලාභ ප්‍රතිශතය ගණනය කරනු ලබන්නේ විකුණුම් මිල පදනම් කරගෙනය.",
+    fixedProfitHint:
+      "සජීවී කුකුළාට කිලෝවකට එකතු කරන ස්ථාවර ලාභය; මස් මිල සජීවී විකුණුම් මිල සහ මස් අස්වැන්න අනුව ගණනය කෙරේ.",
     expensesLabel: "වෙනත් වියදම්",
     expensesUnit: "රු./කුකුලෙකුට",
     expensesHint:
@@ -110,6 +123,8 @@ window.I18N = {
     resetBtn: "යළි සකසන්න",
     errorMsg:
       "කරුණාකර නිවැරදි අගයන් ඇතුළත් කරන්න. ලාභ ප්‍රතිශතය 100%ට අඩු විය යුතු අතර, බර සහ අස්වැන්න 0ට වැඩි විය යුතුය.",
+    errorMsgFixed:
+      "කරුණාකර නිවැරදි අගයන් ඇතුළත් කරන්න. ලාභය 0 හෝ ඊට වැඩි විය යුතු අතර, බර සහ අස්වැන්න 0ට වැඩි විය යුතුය.",
     resultsHeading: "ගණනය කළ ප්‍රතිඵල",
     liveTitle: "සජීවී කුකුල් මස්",
     livePill: "සජීවී",
@@ -157,6 +172,8 @@ window.I18N = {
     clipTitle: "HenHouse කුකුල් මස් මිල ගණනය කිරීම",
     clipLivePurchase: "සජීවී කුකුළන් මිලදී ගැනීමේ මිල",
     clipMargin: "බලාපොරොත්තු වන ලාභ ප්‍රතිශතය",
+    clipFixedProfit: "සජීවී ස්ථාවර ලාභය",
+    clipFixedProfit: "බලාපොරොත්තු වන ස්ථාවර ලාභය",
     clipExpenses: "වෙනත් වියදම්",
     clipLiveWeight: "සජීවී කුකුළාගේ බර",
     clipYield: "මස් අස්වැන්න",
@@ -181,7 +198,12 @@ window.I18N = {
     purchaseLabel: "உயிருள்ள கோழி கொள்முதல் விலை",
     purchaseUnit: "ரூ./கிலோ",
     marginLabel: "எதிர்பார்க்கும் இலாப விகிதம்",
+    fixedProfitLabel: "உயிருள்ள கோழி நிலையான இலாபம்",
+    profitModePercent: "%",
+    profitModeFixed: "ரூ./கிலோ",
     marginHint: "இலாப விகிதம் விற்பனை விலையின் சதவீதமாக கணக்கிடப்படுகிறது.",
+    fixedProfitHint:
+      "உயிருள்ள கோழிக்கு கிலோ ஒன்றுக்கு சேர்க்கப்படும் நிலையான இலாபம்; இறைச்சி விலை உயிருள்ள விற்பனை விலை மற்றும் இறைச்சி விகிதத்தின்படி கணக்கிடப்படும்.",
     expensesLabel: "ஏனைய செலவுகள்",
     expensesUnit: "ரூ./கோழி ஒன்றுக்கு",
     expensesHint:
@@ -194,6 +216,8 @@ window.I18N = {
     resetBtn: "மீட்டமை",
     errorMsg:
       "தயவுசெய்து சரியான எண்களை உள்ளிடவும். லாப விகிதம் 100% ஐ விட குறைவாகவும், எடை மற்றும் இறைச்சி விகிதம் 0 ஐ விட அதிகமாகவும் இருக்க வேண்டும்.",
+    errorMsgFixed:
+      "தயவுசெய்து சரியான எண்களை உள்ளிடவும். இலாபம் 0 அல்லது அதற்கு மேல் இருக்க வேண்டும்; எடை மற்றும் இறைச்சி விகிதம் 0 ஐ விட அதிகமாக இருக்க வேண்டும்.",
     resultsHeading: "கணக்கிடப்பட்ட முடிவுகள்",
     liveTitle: "உயிருள்ள கோழி",
     livePill: "உயிருள்ள",
@@ -241,6 +265,8 @@ window.I18N = {
     clipTitle: "HenHouse கோழி இறைச்சி விலை கணிப்பான்",
     clipLivePurchase: "உயிருள்ள கோழி கொள்முதல் விலை",
     clipMargin: "எதிர்பார்க்கும் இலாப விகிதம்",
+    clipFixedProfit: "உயிருள்ள கோழி நிலையான இலாபம்",
+    clipFixedProfit: "எதிர்பார்க்கும் நிலையான இலாபம்",
     clipExpenses: "ஏனைய செலவுகள்",
     clipLiveWeight: "உயிருள்ள கோழியின் எடை",
     clipYield: "இறைச்சி விகிதம்",
@@ -257,4 +283,3 @@ window.I18N = {
     clipPerBird: "/கோழி ஒன்றுக்கு",
   },
 };
-
