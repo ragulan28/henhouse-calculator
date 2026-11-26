@@ -61,6 +61,9 @@ window.I18N = {
     faq4A:
       "You can reach HenHouse directly on WhatsApp at 0777 649 544 (+94 77 764 9544) or visit facebook.com/henhouse.lk for daily wholesale and retail pricing updates across Sri Lanka.",
     footerText: "HenHouse · Chicken Pricing Calculator",
+    installBtn: "Install",
+    iosInstallHint:
+      "Tap Share, then 'Add to Home Screen' to install HenHouse.",
     usageLabel: "App used:",
     usageSuffix: "times",
     currencyPrefix: "Rs. ",
@@ -140,6 +143,9 @@ window.I18N = {
     faq4A:
       "ඔබට 0777 649 544 WhatsApp ඔස්සේ හෝ facebook.com/henhouse.lk පිටුව හරහා දෛනික තොග සහ සිල්ලර මිල ගණන් දැනගෙන ඇණවුම් කළ හැක.",
     footerText: "HenHouse · කුකුල් මස් මිල ගණනය කිරීම",
+    installBtn: "ස්ථාපනය",
+    iosInstallHint:
+      "HenHouse ස්ථාපනය කිරීමට Share ඔබා 'Add to Home Screen' තෝරන්න.",
     usageLabel: "භාවිත වාර:",
     usageSuffix: "වරක්",
     currencyPrefix: "රු. ",
@@ -219,6 +225,9 @@ window.I18N = {
     faq4A:
       "நீங்கள் 0777 649 544 என்ற WhatsApp இலக்கம் மூலமாகவோ அல்லது facebook.com/henhouse.lk பேஸ்புக் பக்கம் மூலமாகவோ தினசரி மொத்த மற்றும் சில்லறை விலைகளை அறிந்து ஆர்டர் செய்யலாம்.",
     footerText: "HenHouse · கோழி இறைச்சி விலை கணிப்பான்",
+    installBtn: "நிறுவு",
+    iosInstallHint:
+      "HenHouse செயலியை நிறுவ Share அழுத்தி 'Add to Home Screen' என்பதைத் தேர்ந்தெடுக்கவும்.",
     usageLabel: "பயன்படுத்தியது:",
     usageSuffix: "தடவைகள்",
     currencyPrefix: "ரூ. ",

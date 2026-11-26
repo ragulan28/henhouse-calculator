@@ -347,10 +347,83 @@
 
   initUsageTracker();
 
+  // PWA Install Prompt (Android/Desktop Chrome + iOS Safari fallback)
+  function initPwaInstall() {
+    const installBtn = $("installBtn");
+    const iosBanner = $("iosInstallBanner");
+    const iosClose = $("iosInstallClose");
+    if (!installBtn) return;
+
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true;
+    if (isStandalone) return;
+
+    const isIos =
+      /iphone|ipad|ipod/i.test(window.navigator.userAgent) &&
+      !window.MSStream;
+    let deferredPrompt = null;
+
+    if (isIos) {
+      installBtn.hidden = false;
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      installBtn.hidden = false;
+    });
+
+    installBtn.addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        try {
+          const choice = await deferredPrompt.userChoice;
+          if (choice && choice.outcome === "accepted") {
+            installBtn.hidden = true;
+          }
+        } catch {}
+        deferredPrompt = null;
+      } else if (isIos && iosBanner) {
+        iosBanner.hidden = !iosBanner.hidden;
+      }
+    });
+
+    if (iosClose && iosBanner) {
+      iosClose.addEventListener("click", () => {
+        iosBanner.hidden = true;
+      });
+    }
+
+    window.addEventListener("appinstalled", () => {
+      installBtn.hidden = true;
+      if (iosBanner) iosBanner.hidden = true;
+      deferredPrompt = null;
+    });
+  }
+
+  initPwaInstall();
+
   // Register service worker for offline PWA support
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!hadController || refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
     window.addEventListener("load", () =>
-      navigator.serviceWorker.register("./sw.js").catch(() => {}),
+      navigator.serviceWorker
+        .register("./sw.js", { updateViaCache: "none" })
+        .then((reg) => {
+          document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+              reg.update().catch(() => {});
+            }
+          });
+        })
+        .catch(() => {}),
     );
   }
 })();

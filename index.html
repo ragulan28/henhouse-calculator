@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#2a1d17" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="HenHouse" />
     <meta
       name="description"
       content="Calculate and compare live chicken vs. meat min selling prices, selling prices, and profit margins in Sri Lanka. Trilingual poultry calculator in English, සිංහල, and தமிழ்."
@@ -224,6 +228,20 @@
             </button>
           </div>
           <div class="header-social" aria-label="HenHouse Social and Contact">
+            <button
+              type="button"
+              id="installBtn"
+              class="install-btn"
+              hidden
+              aria-label="Install HenHouse App"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V4a1 1 0 0 1 1-1zm-7 15a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1z"
+                />
+              </svg>
+              <span data-i18n="installBtn">Install</span>
+            </button>
             <a
               href="https://wa.me/94777649544"
               target="_blank"
@@ -258,6 +276,19 @@
     </header>
 
     <main>
+      <div id="iosInstallBanner" class="ios-install-banner" role="status" hidden>
+        <span data-i18n="iosInstallHint"
+          >Tap Share, then 'Add to Home Screen' to install HenHouse.</span
+        >
+        <button
+          type="button"
+          id="iosInstallClose"
+          class="ios-install-close"
+          aria-label="Close"
+        >
+          ×
+        </button>
+      </div>
       <p class="intro" data-i18n="intro">
         Enter your chicken purchase cost and expenses to compare live-chicken
         and meat selling prices.
