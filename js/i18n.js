@@ -42,6 +42,7 @@ window.I18N = {
     spPill: "SELLING PRICE",
     spLiveCard: "Live chicken / kg",
     spDressedCard: "Meat / kg",
+    spProfitPrefix: "Profit:",
     contactHeading: "Contact HenHouse",
     contactDesc:
       "Order fresh chicken or inquire about daily wholesale and retail pricing.",
@@ -120,6 +121,7 @@ window.I18N = {
     spPill: "විකුණුම් මිල",
     spLiveCard: "සජීවී කුකුල් මස් / කි.ග්‍රෑ.",
     spDressedCard: "මස් / කි.ග්‍රෑ.",
+    spProfitPrefix: "ලාභය:",
     contactHeading: "HenHouse අමතන්න",
     contactDesc:
       "නැවුම් කුකුල් මස් ඇණවුම් කිරීමට සහ දෛනික තොග/සිල්ලර මිල ගණන් දැනගැනීමට අමතන්න.",
@@ -198,6 +200,7 @@ window.I18N = {
     spPill: "விற்பனை விலை",
     spLiveCard: "உயிருள்ள கோழி / கிலோ",
     spDressedCard: "இறைச்சி / கிலோ",
+    spProfitPrefix: "இலாபம்:",
     contactHeading: "HenHouse உடன் தொடர்பு கொள்ள",
     contactDesc:
       "புதிய கோழி இறைச்சி ஆர்டர்கள் மற்றும் தினசரி மொத்த, சில்லறை விலை விபரங்களுக்கு தொடர்பு கொள்ளவும்.",

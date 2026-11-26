@@ -54,12 +54,19 @@
     }
   } catch {}
 
-  const money = (value) =>
-    (I18N[currentLang]?.currencyPrefix || "Rs. ") +
-    value.toLocaleString("en-LK", {
+  const money = (value) => {
+    const formatted = value.toLocaleString("en-LK", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+    return (
+      (I18N[currentLang]?.currencyPrefix || "Rs. ") +
+      formatted.replace(/\.00$/, "")
+    );
+  };
+
+  const roundUpTo10 = (value) =>
+    value <= 0 ? 0 : Math.ceil((value - 1e-9) / 10) * 10;
 
   let current = null;
 
@@ -125,6 +132,10 @@
     const dressedSP = dressedBE / factor;
     const liveProfit = liveSP - liveBE;
     const dressedProfit = dressedSP - dressedBE;
+    const compareLiveSP = roundUpTo10(liveSP);
+    const compareDressedSP = roundUpTo10(dressedSP);
+    const compareLiveProfit = compareLiveSP - liveBE;
+    const compareDressedProfit = compareDressedSP - dressedBE;
     const difference = dressedSP - liveSP;
 
     const result = {
@@ -149,8 +160,12 @@
     $("dressedBE").textContent = money(dressedBE);
     $("dressedSP").textContent = money(dressedSP);
     $("dressedProfit").textContent = money(dressedProfit);
-    $("compareLive").textContent = money(liveSP);
-    $("compareDressed").textContent = money(dressedSP);
+    $("compareLive").textContent = money(compareLiveSP);
+    $("compareDressed").textContent = money(compareDressedSP);
+    if ($("compareLiveProfit"))
+      $("compareLiveProfit").textContent = money(compareLiveProfit);
+    if ($("compareDressedProfit"))
+      $("compareDressedProfit").textContent = money(compareDressedProfit);
     if ($("difference")) $("difference").textContent = money(difference);
   }
 
@@ -229,6 +244,64 @@
 
   // Initial render
   setLanguage(currentLang);
+
+  // Mobile sticky-bottom Selling Price bar: pins to bottom until its natural
+  // slot reaches the viewport bottom, then docks cleanly in flow.
+  function initMobileStickySellingPrice() {
+    const slot = $("spSlot");
+    const group = $("spGroup");
+    if (!slot || !group) return;
+
+    const mobileMq = window.matchMedia("(max-width: 720px)");
+    let pinned = false;
+    let rafId = 0;
+
+    function unpin() {
+      if (!pinned) return;
+      group.classList.remove("is-pinned");
+      slot.style.minHeight = "";
+      pinned = false;
+    }
+
+    function update() {
+      rafId = 0;
+      if (!mobileMq.matches) {
+        unpin();
+        return;
+      }
+
+      const rect = slot.getBoundingClientRect();
+      const shouldPin = rect.bottom > window.innerHeight - 12;
+
+      if (shouldPin && !pinned) {
+        slot.style.minHeight = `${group.offsetHeight}px`;
+        group.classList.add("is-pinned");
+        pinned = true;
+      } else if (!shouldPin) {
+        unpin();
+      }
+    }
+
+    function scheduleUpdate() {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", () => {
+      if (pinned) {
+        unpin();
+      }
+      scheduleUpdate();
+    });
+    if (mobileMq.addEventListener) {
+      mobileMq.addEventListener("change", scheduleUpdate);
+    }
+
+    update();
+  }
+
+  initMobileStickySellingPrice();
 
   // Global Usage Tracker (CounterAPI v2)
   async function initUsageTracker() {
