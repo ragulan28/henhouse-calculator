@@ -64,6 +64,8 @@ window.I18N = {
     installBtn: "Install",
     iosInstallHint:
       "Tap Share, then 'Add to Home Screen' to install HenHouse.",
+    androidInstallHint:
+      "Open your browser menu (⋮) and tap 'Install app' or 'Add to Home screen'.",
     usageLabel: "App used:",
     usageSuffix: "times",
     currencyPrefix: "Rs. ",
@@ -146,6 +148,8 @@ window.I18N = {
     installBtn: "ස්ථාපනය",
     iosInstallHint:
       "HenHouse ස්ථාපනය කිරීමට Share ඔබා 'Add to Home Screen' තෝරන්න.",
+    androidInstallHint:
+      "බ්‍රවුසරයේ මෙනුව (⋮) විවෘත කර 'Install app' හෝ 'Add to Home screen' තෝරන්න.",
     usageLabel: "භාවිත වාර:",
     usageSuffix: "වරක්",
     currencyPrefix: "රු. ",
@@ -228,6 +232,8 @@ window.I18N = {
     installBtn: "நிறுவு",
     iosInstallHint:
       "HenHouse செயலியை நிறுவ Share அழுத்தி 'Add to Home Screen' என்பதைத் தேர்ந்தெடுக்கவும்.",
+    androidInstallHint:
+      "உலாவி மெனுவை (⋮) திறந்து 'Install app' அல்லது 'Add to Home screen' என்பதைத் தேர்ந்தெடுக்கவும்.",
     usageLabel: "பயன்படுத்தியது:",
     usageSuffix: "தடவைகள்",
     currencyPrefix: "ரூ. ",

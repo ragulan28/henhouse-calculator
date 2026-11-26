@@ -347,11 +347,12 @@
 
   initUsageTracker();
 
-  // PWA Install Prompt (Android/Desktop Chrome + iOS Safari fallback)
+  // PWA Install Prompt (Android/Desktop Chrome + iOS Safari & mobile fallback)
   function initPwaInstall() {
     const installBtn = $("installBtn");
-    const iosBanner = $("iosInstallBanner");
-    const iosClose = $("iosInstallClose");
+    const installBanner = $("iosInstallBanner");
+    const installBannerText = $("installBannerText");
+    const installClose = $("iosInstallClose");
     if (!installBtn) return;
 
     const isStandalone =
@@ -359,18 +360,27 @@
       window.navigator.standalone === true;
     if (isStandalone) return;
 
-    const isIos =
-      /iphone|ipad|ipod/i.test(window.navigator.userAgent) &&
-      !window.MSStream;
-    let deferredPrompt = null;
+    const ua = window.navigator.userAgent || "";
+    const isIos = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
+    const isMobile = isIos || /android|mobile/i.test(ua);
+    let deferredPrompt = window.__deferredInstallPrompt || null;
 
-    if (isIos) {
+    if (installBannerText) {
+      const hintKey = isIos ? "iosInstallHint" : "androidInstallHint";
+      installBannerText.setAttribute("data-i18n", hintKey);
+      if (I18N[currentLang] && I18N[currentLang][hintKey]) {
+        installBannerText.textContent = I18N[currentLang][hintKey];
+      }
+    }
+
+    if (deferredPrompt || isMobile) {
       installBtn.hidden = false;
     }
 
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       deferredPrompt = event;
+      window.__deferredInstallPrompt = event;
       installBtn.hidden = false;
     });
 
@@ -381,24 +391,27 @@
           const choice = await deferredPrompt.userChoice;
           if (choice && choice.outcome === "accepted") {
             installBtn.hidden = true;
+            if (installBanner) installBanner.hidden = true;
           }
         } catch {}
         deferredPrompt = null;
-      } else if (isIos && iosBanner) {
-        iosBanner.hidden = !iosBanner.hidden;
+        window.__deferredInstallPrompt = null;
+      } else if (installBanner) {
+        installBanner.hidden = !installBanner.hidden;
       }
     });
 
-    if (iosClose && iosBanner) {
-      iosClose.addEventListener("click", () => {
-        iosBanner.hidden = true;
+    if (installClose && installBanner) {
+      installClose.addEventListener("click", () => {
+        installBanner.hidden = true;
       });
     }
 
     window.addEventListener("appinstalled", () => {
       installBtn.hidden = true;
-      if (iosBanner) iosBanner.hidden = true;
+      if (installBanner) installBanner.hidden = true;
       deferredPrompt = null;
+      window.__deferredInstallPrompt = null;
     });
   }
 
